@@ -20,4 +20,10 @@ case class Board(
   lazy val coordinates = table.keys
   lazy val elements = table.values
   val occupiedSlots = coordinates.size
+
+  def at(coordinate : Coordinate) : Option[Element] = table.get(coordinate)
+
+  def eachElement( f : (Element) => scala.Unit ) {
+    table.values.foreach(f)
+  }
 }

@@ -2,6 +2,18 @@ package obb.formatters
 
 import obb.engine._
 
+object AsciiBoardFormatter {
+
+  def apply(raw : String) : Board = {
+    raw.trim.split("\n").foreach { line =>
+      line.trim.split("|").foreach { rawElement =>
+      }
+    }
+    Board(3, 3, 2, Map( Coordinate(1, 1) -> Element("1:1:~:S") ))
+  }
+
+}
+
 class AsciiBoardFormatter(board : Board) {
 
   override def toString = {

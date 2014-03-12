@@ -44,4 +44,16 @@ class AsciiBoardFormatterSpec extends UnitSpec {
      |           |           | 2:100:~:N |
     """ )
   }
+
+  it("loads a board given a table in ascii") {
+    val board = AsciiBoardFormatter("""
+     | 1:1:~:S   |           |           |
+     |           |           |           |
+     |           |           | 2:100:~:N |
+    """)
+
+    assert(board.at(1,1) == Some(Element("1:1:~:S")))
+    assert(board.at(2, 1) == None)
+  }
+
 }

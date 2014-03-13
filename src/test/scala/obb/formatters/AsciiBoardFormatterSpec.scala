@@ -35,7 +35,7 @@ class AsciiBoardFormatterSpec extends UnitSpec {
         Coordinate(1, 1) -> Element("1:1:~:S"),
         Coordinate(3, 3) -> Element("2:100:~:N")
       )
-    val board = Board(3, 3, 2, elements)
+    val board = Board(3, 3, elements)
     val formatter = new AsciiBoardFormatter(board)
     assert(formatter.maxElementSize == 9)
     assert(formatter == """

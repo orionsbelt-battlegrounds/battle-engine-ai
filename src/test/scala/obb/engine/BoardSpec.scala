@@ -13,14 +13,6 @@ class BoardSpec extends UnitSpec {
         val board = Board.empty
         assert(board.sizeX == 8)
         assert(board.sizeY == 8)
-        assert(board.numberOfPlayers == 2)
-      }
-
-      it("is possible to create a board with specified dimensions") {
-        val board = Board(3, 3)
-        assert(board.sizeX == 3)
-        assert(board.sizeY == 3)
-        assert(board.numberOfPlayers == 2)
       }
 
       it("has 0 occupied slots") {

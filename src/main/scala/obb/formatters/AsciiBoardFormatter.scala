@@ -9,7 +9,7 @@ object AsciiBoardFormatter {
       line.trim.split("|").foreach { rawElement =>
       }
     }
-    Board(3, 3, 2, Map( Coordinate(1, 1) -> Element("1:1:~:S") ))
+    Board(3, 3, Map( Coordinate(1, 1) -> Element("1:1:~:S") ))
   }
 
 }

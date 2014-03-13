@@ -5,20 +5,20 @@ import obb.engine._
 
 class CombatUnitSpec extends UnitSpec {
 
-  describe("Unit") {
+  describe("CombatUnit") {
 
     describe("dummy") {
 
       it("is available") {
-        assert(Unit.dummy.name == "dummy")
+        assert(CombatUnit.dummy.name == "dummy")
       }
 
       it("is findable by name") {
-        assert(Unit(Unit.dummy.name) == Unit.dummy)
+        assert(CombatUnit(CombatUnit.dummy.name) == CombatUnit.dummy)
       }
 
       it("is findable by code") {
-        assert(Unit(Unit.dummy.code) == Unit.dummy)
+        assert(CombatUnit(CombatUnit.dummy.code) == CombatUnit.dummy)
       }
 
     }

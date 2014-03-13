@@ -7,7 +7,7 @@ object Element {
   def apply(raw : String) : Element = {
     raw.trim.split(":") match {
       case Array(playerCode, quantity, unitCode, directionCode) =>
-        Element(Player(playerCode.toInt), Unit(unitCode), quantity.toInt, Direction(directionCode))
+        Element(Player(playerCode.toInt), CombatUnit(unitCode), quantity.toInt, Direction(directionCode))
       case _ =>
         throw new ParseElementException(s"Can't parse to element '$raw'")
     }
@@ -16,7 +16,7 @@ object Element {
 
 }
 
-case class Element(player: Player, unit : Unit, quantity : Int, direction : Direction) {
+case class Element(player: Player, unit : CombatUnit, quantity : Int, direction : Direction) {
 
   override def toString = {
     s"${player.code}:$quantity:${unit.code}:$direction"

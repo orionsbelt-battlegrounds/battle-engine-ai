@@ -24,7 +24,7 @@ case class Board(
   def at(x : Int, y : Int) : Option[Element] = at(Coordinate(x, y))
   def at(coordinate : Coordinate) : Option[Element] = table.get(coordinate)
 
-  def eachElement( f : (Element) => scala.Unit ) {
+  def eachElement( f : (Element) => Unit ) {
     table.values.foreach(f)
   }
 }

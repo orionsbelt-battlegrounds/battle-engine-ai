@@ -5,11 +5,15 @@ import obb.engine._
 object AsciiBoardFormatter {
 
   def apply(raw : String) : Board = {
-    raw.trim.split("\n").foreach { line =>
-      line.trim.split("|").foreach { rawElement =>
+    var table = Map[Coordinate, Element]()
+    raw.trim.split('\n').zipWithIndex.foreach { case (line, x) =>
+      line.trim.split('|').zipWithIndex.foreach { case(rawElement, y) =>
+        if( rawElement.trim.size > 0 && rawElement.trim != "|" ) {
+          table += ( Coordinate(x+1, y) -> Element(rawElement) )
+        }
       }
     }
-    Board(3, 3, Map( Coordinate(1, 1) -> Element("1:1:~:S") ))
+    Board(3, 3, table)
   }
 
 }

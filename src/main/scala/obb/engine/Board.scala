@@ -1,6 +1,7 @@
 
 package obb.engine
 
+import obb.formatters._
 
 object Board {
 
@@ -8,6 +9,8 @@ object Board {
   def empty = {
     new Board(8, 8)
   }
+
+  def apply( raw : String ) : Board = AsciiBoardFormatter(raw)
 
 }
 

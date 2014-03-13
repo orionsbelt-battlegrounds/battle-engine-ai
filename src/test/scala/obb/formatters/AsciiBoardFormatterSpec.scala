@@ -48,12 +48,32 @@ class AsciiBoardFormatterSpec extends UnitSpec {
   it("loads a board given a table in ascii") {
     val board = AsciiBoardFormatter("""
      | 1:1:~:S   |           |           |
-     |           |           |           |
+     |           | 2:100:~:N |           |
      |           |           | 2:100:~:N |
     """)
 
     assert(board.at(1,1) == Some(Element("1:1:~:S")))
     assert(board.at(2, 1) == None)
+    assert(board.at(3, 1) == None)
+
+    assert(board.at(1, 2) == None)
+    assert(board.at(2, 2) == Some(Element("2:100:~:N")))
+    assert(board.at(3, 2) == None)
+
+    assert(board.at(1, 3) == None)
+    assert(board.at(2, 3) == None)
+    assert(board.at(3, 3) == Some(Element("2:100:~:N")))
+
+    assert(board.occupiedSlots == 3)
+  }
+
+  it("creates a board directly") {
+    val board = Board("""
+     | 2:100:~:N |
+    """)
+
+    assert(board.at(1, 1) == Some(Element("2:100:~:N")))
+    assert(board.occupiedSlots == 1)
   }
 
 }

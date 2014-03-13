@@ -6,14 +6,18 @@ object AsciiBoardFormatter {
 
   def apply(raw : String) : Board = {
     var table = Map[Coordinate, Element]()
-    raw.trim.split('\n').zipWithIndex.foreach { case (line, x) =>
-      line.trim.split('|').zipWithIndex.foreach { case(rawElement, y) =>
+    var sizeX = 0
+    var sizeY = 0
+    raw.trim.split('\n').zipWithIndex.foreach { case (line, y) =>
+      line.trim.split('|').zipWithIndex.foreach { case(rawElement, x) =>
         if( rawElement.trim.size > 0 && rawElement.trim != "|" ) {
-          table += ( Coordinate(x+1, y) -> Element(rawElement) )
+          table += ( Coordinate(x, y+1) -> Element(rawElement) )
         }
+        sizeX = x
       }
+      sizeY = y+1
     }
-    Board(3, 3, table)
+    Board(sizeX, sizeY, table)
   }
 
 }

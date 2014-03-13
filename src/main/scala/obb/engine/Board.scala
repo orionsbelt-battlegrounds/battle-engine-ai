@@ -26,6 +26,8 @@ case class Board(
   def at(x : Int, y : Int) : Option[Element] = at(Coordinate(x, y))
   def at(coordinate : Coordinate) : Option[Element] = table.get(coordinate)
 
+  override def toString = new AsciiBoardFormatter(this).toString
+
   def eachElement( f : (Element) => Unit ) {
     table.values.foreach(f)
   }

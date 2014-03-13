@@ -65,6 +65,8 @@ class AsciiBoardFormatterSpec extends UnitSpec {
     assert(board.at(3, 3) == Some(Element("2:100:~:N")))
 
     assert(board.occupiedSlots == 3)
+    assert(board.sizeX == 3)
+    assert(board.sizeY == 3)
   }
 
   it("creates a board directly") {
@@ -74,6 +76,32 @@ class AsciiBoardFormatterSpec extends UnitSpec {
 
     assert(board.at(1, 1) == Some(Element("2:100:~:N")))
     assert(board.occupiedSlots == 1)
+    assert(board.sizeX == 1)
+    assert(board.sizeY == 1)
   }
 
+  it("creates an empty board") {
+    val board = Board("""
+     |  |  |  |  |
+     |  |  |  |  |
+     |  |  |  |  |
+    """)
+
+    assert(board.occupiedSlots == 0)
+    assert(board.sizeX == 4)
+    assert(board.sizeY == 3)
+  }
+
+  it("outputs the same board that was loaded") {
+    val raw = """
+     |  |  |  |  |
+     |  |  |  |  |
+     |  |  |  |  |
+    """
+
+    val board = Board(raw)
+    val formatter = new AsciiBoardFormatter(board)
+
+    assert(formatter == board.toString)
+  }
 }

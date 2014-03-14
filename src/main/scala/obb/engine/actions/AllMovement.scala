@@ -4,7 +4,7 @@ import obb.engine._
 
 object AllMovement {
 
-  def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) : Board = {
+  def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) : ActionResult = {
     board.at(from) match {
       case Some(element) =>
         var table = board.table - from
@@ -14,7 +14,7 @@ object AllMovement {
           table += (from -> Element(element.player, element.unit, remaining, element.direction))
         }
         var added = table + (to -> Element(element.player, element.unit, quantityToMove, element.direction))
-        Board(board.sizeX, board.sizeY, added)
+        ActionResult(true, Board(board.sizeX, board.sizeY, added), 1)
       case _ => throw new Exception("Error")
     }
   }

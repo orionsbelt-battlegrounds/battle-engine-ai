@@ -1,6 +1,6 @@
 package obb.engine
 
-case class CoordinateParseException(message : String) extends Exception
+case class CoordinateParseException(message : String) extends Exception(message)
 
 object Coordinate {
 

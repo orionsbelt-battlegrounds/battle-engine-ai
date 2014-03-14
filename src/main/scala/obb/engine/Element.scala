@@ -1,6 +1,6 @@
 package obb.engine
 
-case class ParseElementException(msg : String) extends Exception
+case class ParseElementException(msg : String) extends Exception(msg)
 
 object Element {
 

@@ -28,6 +28,16 @@ class AllMovement extends TurnAction {
     if( !args.board.adjacent(args.from, args.to) ) {
       return Some(ActionResult(false, args.board, 0, Some(s"NotAdjacentCoordinate:${args.to.x},${args.to.y}")))
     }
+
+    val toElement = args.board.at(args.to)
+    if( toElement != None ) {
+      val source = args.board.at(args.from).get
+      val target = toElement.get
+      if( source.player != target.player || source.unit != target.unit  ) {
+        return Some(ActionResult(false, args.board, 0, Some("TargetNotAcceptable")))
+      }
+    }
+
     None
   }
 

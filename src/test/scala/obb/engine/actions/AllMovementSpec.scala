@@ -132,4 +132,42 @@ class AllMovementSpec extends UnitSpec {
     assert(result.board == board)
   }
 
+  it("fails the the target position is occupied by another player") {
+    val board = Board("""
+     |           |           |           |
+     |           | 2:100:~:N |           |
+     |           | 1:100:~:N |           |
+     |           |           |           |
+    """)
+
+    val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(2, 3))
+    assert(result.msg == Some("TargetNotAcceptable"))
+    assert(result.success == false)
+  }
+
+  it("fails to join different unit types") {
+    val board = Board("""
+     |           |           |           |
+     |           | 1:100:~:N |           |
+     |           | 1:100:^:N |           |
+     |           |           |           |
+    """)
+
+    val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(2, 3))
+    assert(result.msg == Some("TargetNotAcceptable"))
+    assert(result.success == false)
+  }
+
+  it("succees to join units") {
+    val board = Board("""
+     |           |           |           |
+     |           | 1:100:~:N |           |
+     |           | 1:100:~:N |           |
+     |           |           |           |
+    """)
+
+    val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(2, 3))
+    assert(result.success == true)
+  }
+
 }

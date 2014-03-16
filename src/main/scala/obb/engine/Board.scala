@@ -31,4 +31,8 @@ case class Board(
   def eachElement( f : (Element) => Unit ) {
     table.values.foreach(f)
   }
+
+  def outOfBounds( coord: Coordinate ) : Boolean = {
+    coord.x < 1 || coord.y < 1 || coord.x > sizeX || coord.y > sizeY
+  }
 }

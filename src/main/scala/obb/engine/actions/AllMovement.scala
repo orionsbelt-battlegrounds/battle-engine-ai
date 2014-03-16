@@ -5,6 +5,9 @@ import obb.engine._
 object AllMovement {
 
   def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) : ActionResult = {
+    if( board.outOfBounds(to) ) {
+      return ActionResult(false, board, 0, Some(s"OutOfBoundsCoordinate:${to.x},${to.y}"))
+    }
     board.at(from) match {
       case Some(element) =>
         var table = board.table - from

@@ -110,4 +110,11 @@ class AllMovementSpec extends UnitSpec {
     assert(result.msg == Some("EmptyCoordinate:1,1"))
   }
 
+  it("fails if to coordinate is out of bounds") {
+    val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(15, 15))
+    assert(result.success == false)
+    assert(result.board == board)
+    assert(result.msg == Some("OutOfBoundsCoordinate:15,15"))
+  }
+
 }

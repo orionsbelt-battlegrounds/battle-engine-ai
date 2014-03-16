@@ -11,11 +11,12 @@ object AllMovement {
         val quantityToMove = if(quantity < 0) element.quantity else quantity
         val remaining = element.quantity - quantityToMove
         if(remaining > 0) {
-          table += (from -> Element(element.player, element.unit, remaining, element.direction))
+          table += (from -> element.forQuantity(remaining))
         }
-        var added = table + (to -> Element(element.player, element.unit, quantityToMove, element.direction))
-        ActionResult(true, Board(board.sizeX, board.sizeY, added), 1)
-      case _ => throw new Exception("Error")
+        table += (to -> element.forQuantity(quantityToMove))
+        ActionResult(true, Board(board.sizeX, board.sizeY, table), 1)
+      case _ =>
+        ActionResult(false, board, 0, Some(s"EmptyCoordinate:${from.x},${from.y}"))
     }
   }
 

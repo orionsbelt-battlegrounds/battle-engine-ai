@@ -22,4 +22,8 @@ case class Element(player: Player, unit : CombatUnit, quantity : Int, direction 
     s"${player.code}:$quantity:${unit.code}:$direction"
   }
 
+  def forQuantity( newQuantity : Int ) : Element = {
+    Element(player, unit, newQuantity, direction)
+  }
+
 }

@@ -102,4 +102,12 @@ class AllMovementSpec extends UnitSpec {
      |          |          |          |
     """))
   }
+
+  it("fails if the source element doesn't exist") {
+    val result = AllMovement.run(board, Coordinate(1, 1), Coordinate(1, 1))
+    assert(result.success == false)
+    assert(result.board == board)
+    assert(result.msg == Some("EmptyCoordinate:1,1"))
+  }
+
 }

@@ -21,25 +21,31 @@ class AllMovement extends TurnAction {
     }
   }
 
-  def process(args : ActionArgs, element : Element) : ActionResult = {
+  def invalidResult(args : ActionArgs) : Option[ActionResult] = {
     if( args.board.outOfBounds(args.to) ) {
-      return ActionResult(false, args.board, 0, Some(s"OutOfBoundsCoordinate:${args.to.x},${args.to.y}"))
+      return Some(ActionResult(false, args.board, 0, Some(s"OutOfBoundsCoordinate:${args.to.x},${args.to.y}")))
     }
     if( !args.board.adjacent(args.from, args.to) ) {
-      return ActionResult(false, args.board, 0, Some(s"NotAdjacentCoordinate:${args.to.x},${args.to.y}"))
+      return Some(ActionResult(false, args.board, 0, Some(s"NotAdjacentCoordinate:${args.to.x},${args.to.y}")))
     }
-    var table = args.board.table - args.from
-    val quantityToMove = if(args.quantity < 0) element.quantity else args.quantity
-    val remaining = element.quantity - quantityToMove
-    var mulFactor = 1
+    None
+  }
 
-    if(remaining > 0) {
-      mulFactor = 2
-      table += (args.from -> element.forQuantity(remaining))
+  def process(args : ActionArgs, element : Element) : ActionResult = {
+    invalidResult(args).getOrElse {
+      var table = args.board.table - args.from
+      val quantityToMove = if(args.quantity < 0) element.quantity else args.quantity
+      val remaining = element.quantity - quantityToMove
+      var mulFactor = 1
+
+      if(remaining > 0) {
+        mulFactor = 2
+        table += (args.from -> element.forQuantity(remaining))
+      }
+      table += (args.to -> element.forQuantity(quantityToMove))
+
+      ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table), element.unit.movementCost * mulFactor)
     }
-    table += (args.to -> element.forQuantity(quantityToMove))
-
-    ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table), element.unit.movementCost * mulFactor)
   }
 
 }

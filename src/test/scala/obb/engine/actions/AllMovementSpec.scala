@@ -15,6 +15,7 @@ class AllMovementSpec extends UnitSpec {
 
   it("moves element up") {
     val result = AllMovement.run( board, Coordinate(2, 2), Coordinate(2, 1), 100)
+    println(result)
     assert(result.success)
     assert(result.board == Board("""
      |           | 2:100:~:N |           |
@@ -116,6 +117,20 @@ class AllMovementSpec extends UnitSpec {
     assert(result.success == false)
     assert(result.board == board)
     assert(result.msg == Some("OutOfBoundsCoordinate:15,15"))
+  }
+
+  it("fails if doesn't move to an adjacent square") {
+    val board = Board("""
+     |           |           |           |
+     |           | 2:100:~:N |           |
+     |           |           |           |
+     |           |           |           |
+    """)
+
+    val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(2, 4))
+    assert(result.msg == Some("NotAdjacentCoordinate:2,4"))
+    assert(result.success == false)
+    assert(result.board == board)
   }
 
 }

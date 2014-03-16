@@ -35,4 +35,9 @@ case class Board(
   def outOfBounds( coord: Coordinate ) : Boolean = {
     coord.x < 1 || coord.y < 1 || coord.x > sizeX || coord.y > sizeY
   }
+
+  def adjacent( reference: Coordinate, other : Coordinate ) : Boolean = {
+    math.abs(reference.x - other.x) <= 1 && math.abs(reference.y - other.y) <= 1
+  }
+
 }

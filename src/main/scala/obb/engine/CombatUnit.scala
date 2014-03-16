@@ -1,5 +1,7 @@
 package obb.engine
 
+import obb.engine.actions._
+
 object CombatUnit {
 
   def apply(raw : String) : CombatUnit = {
@@ -12,4 +14,11 @@ object CombatUnit {
 
 }
 
-case class CombatUnit(name : String, code : String, attack : Int, defense : Int)
+case class CombatUnit(
+  name : String,
+  code : String,
+  attack : Int,
+  defense : Int,
+  movementCost : Int = 1,
+  movementType : TurnAction = MovementType.all
+)

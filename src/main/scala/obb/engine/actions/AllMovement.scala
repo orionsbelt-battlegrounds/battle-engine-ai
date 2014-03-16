@@ -4,22 +4,35 @@ import obb.engine._
 
 object AllMovement {
 
-  def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) : ActionResult = {
-    if( board.outOfBounds(to) ) {
-      return ActionResult(false, board, 0, Some(s"OutOfBoundsCoordinate:${to.x},${to.y}"))
+  def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
+    new AllMovement().run(new ActionArgs(board, from, to, quantity))
+  }
+
+}
+
+class AllMovement extends TurnAction {
+
+  def run( args : ActionArgs ) : ActionResult = {
+    if( args.board.outOfBounds(args.to) ) {
+      return ActionResult(false, args.board, 0, Some(s"OutOfBoundsCoordinate:${args.to.x},${args.to.y}"))
     }
-    board.at(from) match {
+    args.board.at(args.from) match {
       case Some(element) =>
-        var table = board.table - from
-        val quantityToMove = if(quantity < 0) element.quantity else quantity
+        var table = args.board.table - args.from
+        val quantityToMove = if(args.quantity < 0) element.quantity else args.quantity
         val remaining = element.quantity - quantityToMove
+        var mulFactor = 1
+
         if(remaining > 0) {
-          table += (from -> element.forQuantity(remaining))
+          mulFactor = 2
+          table += (args.from -> element.forQuantity(remaining))
         }
-        table += (to -> element.forQuantity(quantityToMove))
-        ActionResult(true, Board(board.sizeX, board.sizeY, table), 1)
+        table += (args.to -> element.forQuantity(quantityToMove))
+
+        ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table), element.unit.movementCost * mulFactor)
+
       case _ =>
-        ActionResult(false, board, 0, Some(s"EmptyCoordinate:${from.x},${from.y}"))
+        ActionResult(false, args.board, 0, Some(s"EmptyCoordinate:${args.from.x},${args.from.y}"))
     }
   }
 

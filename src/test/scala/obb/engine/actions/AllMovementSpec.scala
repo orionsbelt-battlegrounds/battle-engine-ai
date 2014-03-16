@@ -95,6 +95,7 @@ class AllMovementSpec extends UnitSpec {
 
   it("moves element partially") {
     val result = AllMovement.run(board, Coordinate(2, 2), Coordinate(1, 1), 50)
+    assert(result.cost == result.board.at(1, 1).get.unit.movementCost * 2)
     assert(result.success)
     assert(result.board == Board("""
      | 2:50:~:N |          |          |

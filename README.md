@@ -1,4 +1,4 @@
-AI for the battle engine [![Build Status](https://travis-ci.org/orionsbelt-battlegrounds/battle-engine-ai.png?branch=master)](https://travis-ci.org/orionsbelt-battlegrounds/battle-engine-ai)
+AI for the battle engine [![Build Status](https://travis-ci.org/orionsbelt-battlegrounds/battle-engine-ai.png?branch=master)](https://travis-ci.org/orionsbelt-battlegrounds/battle-engine-ai) [![Coverage Status](https://coveralls.io/repos/orionsbelt-battlegrounds/battle-engine-ai/badge.png?branch=master)](https://coveralls.io/r/orionsbelt-battlegrounds/battle-engine-ai?branch=master)
 ================
 
 The `battle-engine-ai` is part of the [Orion's Belt BattleGrounds](https://github.com/orionsbelt-battlegrounds) project. It mimics the main [battle-engine](https://github.com/orionsbelt-battlegrounds/battle-engine) rules and aims to provide an *artificial intelligence* module in `scala` to play the game via the [api](https://github.com/orionsbelt-battlegrounds/api).

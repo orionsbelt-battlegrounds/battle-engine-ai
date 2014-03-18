@@ -38,8 +38,10 @@ class AllMovement extends TurnAction {
       }
     }
 
-    None
+    specificInvalidResult(args)
   }
+
+  def specificInvalidResult( args : ActionArgs ) : Option[ActionResult] = None
 
   def process(args : ActionArgs, element : Element) : ActionResult = {
     invalidResult(args).getOrElse {

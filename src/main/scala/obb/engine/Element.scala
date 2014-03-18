@@ -26,4 +26,8 @@ case class Element(player: Player, unit : CombatUnit, quantity : Int, direction 
     Element(player, unit, newQuantity, direction)
   }
 
+  def forDirection( newDirection : Direction ) : Element = {
+    Element(player, unit, quantity, newDirection)
+  }
+
 }

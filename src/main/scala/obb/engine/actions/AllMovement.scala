@@ -12,15 +12,6 @@ object AllMovement {
 
 class AllMovement extends TurnAction {
 
-  def run( args : ActionArgs ) : ActionResult = {
-    args.board.at(args.from) match {
-      case Some(element) =>
-        process(args, element)
-      case _ =>
-        ActionResult(false, args.board, 0, Some(s"EmptyCoordinate:${args.from.x},${args.from.y}"))
-    }
-  }
-
   def invalidResult(args : ActionArgs) : Option[ActionResult] = {
     if( args.board.outOfBounds(args.to) ) {
       return Some(ActionResult(false, args.board, 0, Some(s"OutOfBoundsCoordinate:${args.to.x},${args.to.y}")))

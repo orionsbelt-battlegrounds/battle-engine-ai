@@ -2,4 +2,10 @@ package obb.engine.actions
 
 import obb.engine._
 
-case class ActionArgs( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 )
+case class ActionArgs(
+  board : Board,
+  from : Coordinate,
+  to : Coordinate,
+  quantity : Int = -1,
+  direction : Option[Direction] = None
+)

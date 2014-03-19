@@ -12,16 +12,11 @@ object DiagonalMovement {
 
 class DiagonalMovement extends AllMovement {
 
-  override def invalidResult(args : ActionArgs) : Option[ActionResult] = {
-    val superResult = super.invalidResult(args)
-    if(superResult != None ) {
-      superResult
+  override def specificInvalidResult( args : ActionArgs ) : Option[ActionResult] = {
+    if( args.from.x != args.to.x && args.from.y != args.to.y ) {
+      None
     } else {
-      if( args.from.x != args.to.x && args.from.y != args.to.y ) {
-        None
-      } else {
-        Some(ActionResult(false, args.board, 0, Some("InvalidDiagonalMovement")))
-      }
+      Some(ActionResult(false, args.board, 0, Some("InvalidDiagonalMovement")))
     }
   }
 

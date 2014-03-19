@@ -12,11 +12,11 @@ object CombatUnit {
   }
 
   lazy val dummy = {
-    CombatUnit("dummy", "~", 100, 100)
+    CombatUnit("dummy", "~", 100, 1, 100)
   }
 
   lazy val mediumDummy = {
-    CombatUnit("dummy", "^", 1000, 1000, 2)
+    CombatUnit("dummy", "^", 1000, 3, 1000, 2)
   }
 
 }
@@ -25,6 +25,7 @@ case class CombatUnit(
   name : String,
   code : String,
   attack : Int,
+  range : Int = 1,
   defense : Int,
   movementCost : Int = 1,
   movementType : TurnAction = MovementType.all

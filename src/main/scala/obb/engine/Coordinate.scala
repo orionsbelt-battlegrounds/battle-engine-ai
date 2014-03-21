@@ -11,6 +11,19 @@ object Coordinate {
     }
   }
 
+  def distance(c1 : Coordinate, c2 : Coordinate) : Int = {
+    if(c1.x == c2.x) {
+      Math.abs(c1.y - c2.y)
+    } else {
+      Math.abs(c1.x - c2.x)
+    }
+  }
+
 }
 
-case class Coordinate(x : Int, y : Int)
+case class Coordinate(x : Int, y : Int) {
+
+  def ~(other : Coordinate) : Int = {
+    Coordinate.distance(this, other)
+  }
+}

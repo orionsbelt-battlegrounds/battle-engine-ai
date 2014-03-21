@@ -40,4 +40,16 @@ class CoordinateSpec extends UnitSpec {
       }
     }
   }
+
+  describe("#distance") {
+
+    it("provides straight distance betweewn 2 coordinates") {
+      assert(Coordinate.distance(Coordinate(1,1), Coordinate(1,2)) == 1)
+    }
+
+    it("provides utility operator ~") {
+      assert( Coordinate(1,1) ~ Coordinate(8, 1) == 7)
+    }
+
+  }
 }

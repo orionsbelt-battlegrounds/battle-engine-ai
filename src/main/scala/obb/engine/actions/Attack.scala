@@ -44,14 +44,33 @@ class Attack extends TurnAction {
 
   def processAttack(args: ActionArgs, attacker : Element, target : Element) : ActionResult = {
     var table = args.board.table
-    val attackPower = attacker.unit.attack * attacker.quantity
+    val totalDamage = getTotalDamage(args, attacker, target)
     val defensePower = target.unit.defense * target.quantity
+    val distancePenalty = getDistancePenalty(args.from, args.to)
 
-    if( attackPower > defensePower ) {
+    val destroyed = resolveAttack(totalDamage, defensePower, target)
+    val remaining = target.quantity - destroyed
+
+    if( remaining <= 0) {
       table -= args.to
+    } else if(remaining < target.quantity) {
+      table += ( args.to -> target.forQuantity(remaining) )
     }
 
     ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table), 1)
+  }
+
+  def resolveAttack(totalDamage : Int, defense : Int, target : Element) = {
+    totalDamage / defense
+  }
+
+  def getDistancePenalty(from : Coordinate, to : Coordinate) : Int = {
+    val distance = from ~ to
+    0
+  }
+
+  def getTotalDamage(args: ActionArgs, attacker : Element, target : Element) : Int = {
+    attacker.unit.attack * attacker.quantity
   }
 
 }

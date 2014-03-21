@@ -122,15 +122,15 @@ class AttackSpec extends UnitSpec {
 
     it("destroys part of the target") {
       val board = Board("""
-       |           | 2:50:^:S |           |
-       |           |            |           |
-       |           | 1:100:^:N  |           |
+       |           | 2:200:^:S |           |
+       |           |           |           |
+       |           | 1:100:^:N |           |
       """)
 
       val result = Attack.run(board, Coordinate(2,3), Coordinate(2, 1))
 
       assert(result.board == Board("""
-       |           | 2:48:^:S  |           |
+       |           | 2:100:^:S |           |
        |           |           |           |
        |           | 1:100:^:N |           |
       """))

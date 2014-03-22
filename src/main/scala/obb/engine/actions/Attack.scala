@@ -32,6 +32,9 @@ class Attack extends TurnAction {
 
       if( currentElement != None ) {
         if( currentCoordinate == args.to) {
+          if( currentElement.get.player == attacker.player ) {
+            return Some(ActionResult(false, args.board, 0, Some(s"InvalidAttack:SamePlayer")))
+          }
           return None
         } else {
           return Some(ActionResult(false, args.board, 0, Some(s"InvalidAttack:Obstacle")))

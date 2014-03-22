@@ -9,6 +9,19 @@ class AttackSpec extends UnitSpec {
 
   describe("basic attack") {
 
+    it("verifies that it isn't the same player") {
+      val board = Board("""
+       |           | 1:1:~:N   |           |
+       |           |           |           |
+       |           | 1:100:^:N |           |
+      """)
+
+      val result = Attack.run(board, Coordinate(2,3), Coordinate(2, 1))
+      assert(result.msg == Some("InvalidAttack:SamePlayer"))
+      assert(result.success == false)
+      assert(result.board == board)
+    }
+
     it("verifies if is something in the way") {
       val board = Board("""
        |           | 2:1:~:N   |           |

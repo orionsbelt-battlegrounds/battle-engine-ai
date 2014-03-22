@@ -118,6 +118,24 @@ class AttackSpec extends UnitSpec {
 
   }
 
+  describe(".getDistanceFactor") {
+
+    it("properly calculates factor") {
+      val attack = new Attack()
+
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(2, 1) ) == 1)
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(3, 1) ) == 1)
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(4, 1) ) == 1)
+
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(5, 1) ) == 0.75)
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(6, 1) ) == 0.50)
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(7, 1) ) == 0.25)
+
+      assert( attack.getDistanceFactor( Coordinate(1, 1), Coordinate(8, 1) ) == 0)
+    }
+
+  }
+
   describe("partial damage attack") {
 
     it("destroys part of the target") {

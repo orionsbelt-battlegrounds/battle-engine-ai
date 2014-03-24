@@ -5,7 +5,6 @@ import obb.formatters._
 
 object Board {
 
-  def default = empty
   def empty = {
     new Board(8, 8)
   }

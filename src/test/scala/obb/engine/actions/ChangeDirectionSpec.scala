@@ -64,4 +64,10 @@ class ChangeDirectionSpec extends UnitSpec {
     assert(result.cost == 1)
   }
 
+  it("fails if direction is invalid") {
+    intercept[Exception] {
+      ChangeDirection.run(board, Coordinate(1,1), Direction("waza"))
+    }
+  }
+
 }

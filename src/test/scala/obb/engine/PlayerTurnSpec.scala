@@ -8,6 +8,7 @@ import obb.engine.actions._
 class PlayerTurnSpec extends UnitSpec {
 
   describe(".push") {
+
     it("pushes movements") {
       val board = Board("""
        |           |           |           |
@@ -23,6 +24,24 @@ class PlayerTurnSpec extends UnitSpec {
        |           |           |           |
       """))
     }
+  }
+
+  describe(".valid") {
+
+    it("checks max movements") {
+      val board = Board("""
+       |           |           |           |
+       |           | 2:100:^:N |           |
+       |           |           |           |
+      """)
+      var turn = new PlayerTurn(board)
+      turn = turn.push( AllMovement.action( turn.board, Coordinate(2, 2), Coordinate(2, 1), 100) )
+      turn = turn.push( AllMovement.action( turn.board, Coordinate(2, 1), Coordinate(2, 2), 100) )
+      turn = turn.push( AllMovement.action( turn.board, Coordinate(2, 2), Coordinate(2, 1), 100) )
+      turn = turn.push( AllMovement.action( turn.board, Coordinate(2, 2), Coordinate(2, 1), 100) )
+      assert(turn.valid == false)
+    }
+
   }
 
 }

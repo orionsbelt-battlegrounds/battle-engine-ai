@@ -8,6 +8,10 @@ object AllMovement {
     new AllMovement().run(new ActionArgs(board, from, to, quantity))
   }
 
+  def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
+    Action(new AllMovement(), new ActionArgs(board, from, to, quantity))
+  }
+
 }
 
 class AllMovement extends TurnAction {

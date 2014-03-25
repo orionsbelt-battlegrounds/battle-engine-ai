@@ -8,6 +8,9 @@ object DiagonalMovement {
     new DiagonalMovement().run(new ActionArgs(board, from, to, quantity))
   }
 
+  def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
+    Action(new DiagonalMovement(), new ActionArgs(board, from, to, quantity))
+  }
 }
 
 class DiagonalMovement extends AllMovement {

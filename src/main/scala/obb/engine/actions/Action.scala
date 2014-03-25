@@ -8,7 +8,7 @@ object Action {
   def parse(raw : String, turn : PlayerTurn) : Action = {
     raw.trim.split(":|-") match {
       case Array("m", rawFrom, rawTo, quantity) =>
-        AllMovement.action( turn.board, Coordinate(rawFrom), Coordinate(rawTo), quantity.toInt)
+        MovementType.action( turn.board, Coordinate(rawFrom), Coordinate(rawTo), quantity.toInt)
       case Array("b", rawFrom, rawTo) =>
         Attack.action(turn.board, Coordinate(rawFrom), Coordinate(rawTo))
     }

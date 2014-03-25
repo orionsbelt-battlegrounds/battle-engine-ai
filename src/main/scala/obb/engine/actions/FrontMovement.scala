@@ -9,6 +9,9 @@ object FrontMovement {
     new FrontMovement().run(new ActionArgs(board, from, to, quantity))
   }
 
+  def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
+    Action(new FrontMovement(), new ActionArgs(board, from, to, quantity))
+  }
 }
 
 class FrontMovement extends AllMovement {

@@ -9,6 +9,10 @@ object Attack {
     new Attack().run(new ActionArgs(board, attacker, target))
   }
 
+  def action( board : Board, from : Coordinate, to : Coordinate) = {
+    Action(new Attack(), new ActionArgs(board, from, to))
+  }
+
 }
 
 class Attack extends TurnAction {

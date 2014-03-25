@@ -6,7 +6,12 @@ import obb.engine._
 object Action {
 
   def parse(raw : String, turn : PlayerTurn) : Action = {
-    AllMovement.action( turn.board, Coordinate(2, 2), Coordinate(2, 1), 100)
+    raw.trim.split(":|-") match {
+      case Array("m", rawFrom, rawTo, quantity) =>
+        AllMovement.action( turn.board, Coordinate(rawFrom), Coordinate(rawTo), quantity.toInt)
+      case Array("b", rawFrom, rawTo) =>
+        Attack.action(turn.board, Coordinate(rawFrom), Coordinate(rawTo))
+    }
   }
 
 }

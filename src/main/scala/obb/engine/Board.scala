@@ -25,6 +25,8 @@ case class Board(
   def at(x : Int, y : Int) : Option[Element] = at(Coordinate(x, y))
   def at(coordinate : Coordinate) : Option[Element] = table.get(coordinate)
 
+  def ~(raw : String) : PlayerTurn = PlayerTurn(this).push(raw)
+
   override def toString = new AsciiBoardFormatter(this).toString
 
   def eachElement( f : (Element) => Unit ) {

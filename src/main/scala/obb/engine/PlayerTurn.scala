@@ -9,6 +9,9 @@ case class PlayerTurn(
   valid : Boolean = true
 ) {
 
+  def ~(raw : String) = push(raw)
+  def push( raw : String ) : PlayerTurn = push(Action.parse(raw, this))
+
   def push( action : Action ) : PlayerTurn = {
     val result = action.run
     val newCost = result.cost + totalCost

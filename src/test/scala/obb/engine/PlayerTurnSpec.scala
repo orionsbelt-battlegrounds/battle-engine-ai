@@ -24,6 +24,21 @@ class PlayerTurnSpec extends UnitSpec {
        |           |           |           |
       """))
     }
+
+    it("pushes movements by code") {
+      val turn = Board("""
+       |           |           |           |
+       |           | 2:100:~:N |           |
+       |           |           |           |
+      """) ~ "m:2_2-2_1-100"
+
+      assert(turn.totalCost == 1)
+      assert(turn.board == Board("""
+       |           | 2:100:~:N |           |
+       |           |           |           |
+       |           |           |           |
+      """))
+    }
   }
 
   describe(".valid") {

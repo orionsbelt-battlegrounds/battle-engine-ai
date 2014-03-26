@@ -5,7 +5,11 @@ import obb.engine._
 object NormalMovement {
 
   def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
-    new NormalMovement().run(new ActionArgs(board, from, to, quantity))
+    action(board, from, to, quantity).run
+  }
+
+  def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
+    Action(new NormalMovement(), new ActionArgs(board, from, to, quantity))
   }
 
 }

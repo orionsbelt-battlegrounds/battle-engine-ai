@@ -5,7 +5,7 @@ import obb.engine._
 object AllMovement {
 
   def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
-    new AllMovement().run(new ActionArgs(board, from, to, quantity))
+    action(board, from, to, quantity).run
   }
 
   def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {

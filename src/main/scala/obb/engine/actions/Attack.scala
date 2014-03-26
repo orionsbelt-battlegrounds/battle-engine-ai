@@ -6,7 +6,7 @@ import obb.engine._
 object Attack {
 
   def run( board : Board, attacker : Coordinate, target : Coordinate) = {
-    new Attack().run(new ActionArgs(board, attacker, target))
+    action(board, attacker, target).run
   }
 
   def action( board : Board, from : Coordinate, to : Coordinate) = {

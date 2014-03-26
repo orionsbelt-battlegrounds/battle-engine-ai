@@ -6,7 +6,11 @@ import obb.engine._
 object ChangeDirection {
 
   def run( board : Board, coordinate : Coordinate, direction : Direction) = {
-    new ChangeDirection().run(new ActionArgs(board, coordinate, coordinate, -1, Some(direction)))
+    action(board, coordinate, direction).run
+  }
+
+  def action( board : Board, coordinate : Coordinate, direction : Direction) = {
+    Action(new ChangeDirection(), new ActionArgs(board, coordinate, coordinate, -1, Some(direction)))
   }
 
 }

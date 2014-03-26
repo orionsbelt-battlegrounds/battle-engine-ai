@@ -6,7 +6,7 @@ import obb.engine._
 object FrontMovement {
 
   def run( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {
-    new FrontMovement().run(new ActionArgs(board, from, to, quantity))
+    action(board, from, to, quantity).run
   }
 
   def action( board : Board, from : Coordinate, to : Coordinate, quantity : Int = -1 ) = {

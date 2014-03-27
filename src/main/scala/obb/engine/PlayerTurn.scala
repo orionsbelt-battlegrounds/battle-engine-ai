@@ -10,6 +10,7 @@ case class PlayerTurn(
 ) {
 
   def ~(raw : String) = push(raw)
+  def ~(action : Action) = push(action)
   def push( raw : String ) : PlayerTurn = push(Action.parse(raw, this))
 
   def push( action : Action ) : PlayerTurn = {

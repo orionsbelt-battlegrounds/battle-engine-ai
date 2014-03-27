@@ -16,4 +16,23 @@ class AttackGeneratorSpec extends UnitSpec {
     assert(choices == Nil)
   }
 
+  it("returns an attack if possible") {
+    val board = Board("""
+     |           | 2:100:^:N |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turn = PlayerTurn(board)
+    val choices = AttackGenerator.run(turn, Coordinate(2, 2))
+    assert(choices.size == 1)
+
+    val processed = choices.head
+    assert(processed.valid == true)
+    assert(processed.totalCost == 1)
+    assert(processed.board == Board("""
+     |           |           |           |
+     |           | 1:100:^:N |           |
+    """))
+  }
+
 }

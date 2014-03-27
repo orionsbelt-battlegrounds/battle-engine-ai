@@ -9,6 +9,10 @@ case class PlayerTurn(
   valid : Boolean = true
 ) {
 
+  val maxCost = 6
+
+  def availableCost(cost : Int ) = totalCost + cost <= maxCost
+
   def ~(raw : String) = push(raw)
   def ~(action : Action) = push(action)
   def push( raw : String ) : PlayerTurn = push(Action.parse(raw, this))
@@ -16,7 +20,7 @@ case class PlayerTurn(
   def push( action : Action ) : PlayerTurn = {
     val result = action.run
     val newCost = result.cost + totalCost
-    PlayerTurn(result.board, newCost, result.success && newCost <= 6 )
+    PlayerTurn(result.board, newCost, result.success && newCost <= maxCost )
   }
 
 }

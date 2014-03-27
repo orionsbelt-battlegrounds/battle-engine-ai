@@ -15,6 +15,13 @@ object Direction {
       case _ => throw new Exception(s"Don't know direction '$raw'")
     }
   }
+
+  def distinctFrom( dir : Direction )( f : (Direction) => Unit ) {
+    if(dir != north) { f(north) }
+    if(dir != south) { f(south) }
+    if(dir != east) { f(east) }
+    if(dir != west) { f(west) }
+  }
 }
 
 case class Direction( code : String, x : Int, y : Int ) {

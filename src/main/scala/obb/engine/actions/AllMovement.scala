@@ -14,7 +14,7 @@ object AllMovement {
 
 }
 
-class AllMovement extends TurnAction {
+class AllMovement extends MovementAction {
 
   def invalidResult(args : ActionArgs) : Option[ActionResult] = {
     if( args.board.outOfBounds(args.to) ) {

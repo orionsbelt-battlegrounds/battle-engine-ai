@@ -3,10 +3,10 @@ package obb.engine
 import obb.engine.actions._
 
 object MovementType {
-  val all : TurnAction = new AllMovement()
-  val diagonal : TurnAction = new DiagonalMovement()
-  val normal : TurnAction = new NormalMovement()
-  val front : TurnAction = new FrontMovement()
+  val all : MovementAction = new AllMovement()
+  val diagonal : MovementAction = new DiagonalMovement()
+  val normal : MovementAction = new NormalMovement()
+  val front : MovementAction = new FrontMovement()
 
   def action(board: Board, from : Coordinate, to : Coordinate, quantity : Int) : Action = {
     val element = board.at(from).get

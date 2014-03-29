@@ -28,5 +28,5 @@ case class CombatUnit(
   range : Int = 1,
   defense : Int,
   movementCost : Int = 1,
-  movementType : TurnAction = MovementType.all
+  movementType : MovementAction = MovementType.all
 )

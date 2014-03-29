@@ -42,4 +42,14 @@ class MovementGeneratorSpec extends UnitSpec {
     """))
   }
 
+  it("adds split options ") {
+    val board = Board("""
+      | 1:101:^:N |           |
+      |           | 1:100:~:N |
+    """)
+
+    val turn = PlayerTurn(board)
+    val choices = MovementGenerator.run(turn, Coordinate(1, 1), true)
+    assert(choices.size == 4)
+  }
 }

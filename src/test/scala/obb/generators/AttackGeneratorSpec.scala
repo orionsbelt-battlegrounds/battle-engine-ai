@@ -5,6 +5,17 @@ import obb.generators.AttackGenerator
 
 class AttackGeneratorSpec extends UnitSpec {
 
+  it("returns empty if no movement poits are available") {
+    val board = Board("""
+     |           | 2:100:^:N |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turn = PlayerTurn(board, 6)
+    val choices = AttackGenerator.run(turn, Coordinate(2, 2))
+    assert(choices == Nil)
+  }
+
   it("returns empty if no attack is possible") {
     val board = Board("""
      |           |           |           |
@@ -76,6 +87,25 @@ class AttackGeneratorSpec extends UnitSpec {
     assert(rotated.board == Board("""
      |           | 2:100:^:N |           |
      |           | 1:100:^:E |           |
+    """))
+  }
+
+  it("provides direct attack and rejects rotate because of movement points") {
+    val board = Board("""
+     |           | 2:100:^:N |           |
+     |           | 1:100:^:N | 2:100:^:N |
+    """)
+
+    val turn = PlayerTurn(board, 5)
+    val choices = AttackGenerator.run(turn, Coordinate(2, 2))
+    assert(choices.size == 1)
+
+    val direct = choices.head
+    assert(direct.valid == true)
+    assert(direct.totalCost == 6)
+    assert(direct.board == Board("""
+     |           |           |           |
+     |           | 1:100:^:N | 2:100:^:N |
     """))
   }
 

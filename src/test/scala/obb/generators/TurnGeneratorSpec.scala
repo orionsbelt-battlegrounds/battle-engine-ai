@@ -14,5 +14,14 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run == None)
   }
 
+  it("provies some random move") {
+    val board = Board("""
+     |           |           |           |
+     |           |           |           |
+     |           | 1:100:^:N |           |
+    """)
 
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+  }
 }

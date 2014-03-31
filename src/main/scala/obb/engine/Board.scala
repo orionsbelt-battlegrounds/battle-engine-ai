@@ -29,6 +29,14 @@ case class Board(
 
   override def toString = new AsciiBoardFormatter(this).toString
 
+  def elementsFor(player : Player)( f : (Coordinate, Element) => Unit ) {
+    table.foreach { case (coordinate, element) =>
+      if(element.player == player) {
+        f(coordinate, element)
+      }
+    }
+  }
+
   def eachElement( f : (Element) => Unit ) {
     table.values.foreach(f)
   }

@@ -24,6 +24,6 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val possible = turnGenerator.possible
-    assert(possible.size == 3)
+    assert(possible.size == 6)
   }
 }

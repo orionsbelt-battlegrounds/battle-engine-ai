@@ -18,11 +18,10 @@ class TurnGenerator(board : Board, player : Player) {
   def possible : List[PlayerTurn] = {
     val turn = PlayerTurn(board)
     generatePly(turn)
-    options.toList
+    options.values.toList
   }
 
-  val playerTurnOrder = Ordering[Int].on[PlayerTurn](_.totalCost)
-  var options : SortedSet[PlayerTurn] = SortedSet[PlayerTurn]()(playerTurnOrder)
+  var options : Map[Board, PlayerTurn] = Map[Board, PlayerTurn]()
 
   def generatePly(turn : PlayerTurn) {
     var ply = List[PlayerTurn]()
@@ -30,9 +29,11 @@ class TurnGenerator(board : Board, player : Player) {
       ply ++= MovementGenerator.run(turn, coordinate)
       ply ++= AttackGenerator.run(turn, coordinate)
     }
-    options ++= ply
     ply.foreach { playerTurn =>
-      generatePly(playerTurn)
+      if( options.get(playerTurn.board) == None ) {
+        options += (playerTurn.board -> playerTurn)
+        generatePly(playerTurn)
+      }
     }
   }
 

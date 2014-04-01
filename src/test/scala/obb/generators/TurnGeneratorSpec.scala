@@ -18,20 +18,12 @@ class TurnGeneratorSpec extends UnitSpec {
     val board = Board("""
      |           |           |           |
      |           | 1:100:^:N |           |
-     |           |           |           |
-     |           | 1:100:^:N |           |
-     |           |           |           |
-     |           |           |           |
-     |           | 1:100:^:N |           |
-     |           |           |           |
-     |           | 1:100:^:N |           |
     """)
 
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
     val possible = turnGenerator.possible
-    possible.foreach(println)
     assert(possible.size == 3)
   }
 }

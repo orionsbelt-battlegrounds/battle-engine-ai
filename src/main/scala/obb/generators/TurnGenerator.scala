@@ -10,8 +10,12 @@ class TurnGenerator(
   player : Player,
   evaluator : BoardEvaluator = new SimpleBoardEvaluator()) {
 
-  val orderByBoardValue = Ordering[Int].on[Board]( board => evaluator.evaluate(board, player) )
-  var index : SortedSet[Board] = SortedSet[Board]()(orderByBoardValue)
+  def eval(turn : PlayerTurn) : Float = {
+    evaluator.evaluate(turn.board, player) + 0.6.toFloat - 0.1.toFloat * turn.totalCost
+  }
+
+  val orderByBoardValue = Ordering[Float].on[PlayerTurn](-eval(_))
+  var index : SortedSet[PlayerTurn] = SortedSet[PlayerTurn]()(orderByBoardValue)
 
   def run : Option[PlayerTurn] = {
     val turn = PlayerTurn(board)
@@ -24,7 +28,7 @@ class TurnGenerator(
   }
 
   def best : List[PlayerTurn] = {
-    index.map( options.get(_).get ).toList
+    index.toList
   }
 
   def possible : List[PlayerTurn] = {
@@ -53,8 +57,10 @@ class TurnGenerator(
 
   def pushTurn(turn : PlayerTurn) {
     options += (turn.board -> turn)
-    index += turn.board
+    index += turn
     index = index.take(10)
+
+    //println(s"${eval(turn)} ${turn.historyToString()}")
   }
 
 }

@@ -18,9 +18,10 @@ class SimpleBoardEvaluatorSpec extends UnitSpec {
 
       val evaluator = new SimpleBoardEvaluator()
 
-      assert(evaluator.evaluate(board, Player.p3) == 0)
-      assert(evaluator.evaluate(board, Player.p2) == CombatUnit("~").value * 50 + CombatUnit("^").value * 100)
-      assert(evaluator.evaluate(board, Player.p1) == CombatUnit("~").value * 200)
+      val p2score = CombatUnit("~").value * 50 + CombatUnit("^").value * 100 - CombatUnit("~").value * 200
+      assert(evaluator.evaluate(board, Player.p2) == p2score)
+      val p1score = CombatUnit("~").value * -50 + CombatUnit("^").value * -100 + CombatUnit("~").value * 200
+      assert(evaluator.evaluate(board, Player.p1) == p1score)
   }
 
 }

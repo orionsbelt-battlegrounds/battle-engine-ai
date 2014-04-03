@@ -19,6 +19,8 @@ object Action {
       s"b:${action.args.from.code}-${action.args.to.code}"
     } else if( action.processor.isInstanceOf[AllMovement] ) {
       s"m:${action.args.from.code}-${action.args.to.code}-${action.args.quantity}"
+    } else if( action.processor.isInstanceOf[ChangeDirection] ) {
+      s"r:${action.args.from.code}-${action.args.direction.get}"
     } else {
       "unknown"
     }

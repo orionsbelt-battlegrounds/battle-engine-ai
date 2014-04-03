@@ -31,6 +31,9 @@ class AllMovement extends MovementAction {
       if( source.player != target.player || source.unit != target.unit  ) {
         return Some(ActionResult(false, args.board, 0, Some("TargetNotAcceptable")))
       }
+      if( target.froozen) {
+        return Some(ActionResult(false, args.board, 0, Some("FroozenTarget")))
+      }
     }
 
     specificInvalidResult(args)

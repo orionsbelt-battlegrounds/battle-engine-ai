@@ -40,6 +40,6 @@ class TurnGeneratorSpec extends UnitSpec {
     val best = turnGenerator.best.head
     assert(best.board.elementCount(Player.p2) == 0)
     assert(best.history.size == 1)
-    assert(best.history.head._2.code == "b:2_2-2_1")
+    assert(best.history.head.action.code == "b:2_2-2_1")
   }
 }

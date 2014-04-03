@@ -24,7 +24,10 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
           if(movementType.movementPossible(turn.board, coordinate, maybe)) {
             eachSplitOption(element) { quantity =>
               val action = MovementType.action(turn.board, coordinate, maybe, quantity)
-              movs ::= turn ~ action
+              val playerTurn = turn ~ action
+              if(playerTurn.valid) {
+                movs ::= playerTurn
+              }
             }
           }
         }

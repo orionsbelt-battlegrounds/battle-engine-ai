@@ -31,7 +31,7 @@ class AttackGenerator extends MoveGenerator {
       }
     }
 
-    attacks
+    attacks.filter(_.valid)
   }
 
   def resolveByDirection( turn:PlayerTurn, coordinate : Coordinate, element : Element, dir : Direction)( f : (PlayerTurn) => Unit ) {

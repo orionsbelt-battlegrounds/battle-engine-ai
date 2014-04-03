@@ -26,4 +26,7 @@ case class Coordinate(x : Int, y : Int) {
   def ~(other : Coordinate) : Int = {
     Coordinate.distance(this, other)
   }
+
+  def code = s"${x}_${y}"
+
 }

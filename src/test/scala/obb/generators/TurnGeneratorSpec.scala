@@ -39,5 +39,8 @@ class TurnGeneratorSpec extends UnitSpec {
 
     val best = turnGenerator.best.head
     assert(best.board.elementCount(Player.p2) == 0)
+
+    println(best.historyToString("\n"))
+    println(best.board)
   }
 }

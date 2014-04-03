@@ -14,10 +14,22 @@ object Action {
     }
   }
 
+  def getCode(action : Action) : String = {
+    if( action.processor.isInstanceOf[Attack] ) {
+      s"b:${action.args.from.code}-${action.args.to.code}"
+    } else if( action.processor.isInstanceOf[AllMovement] ) {
+      s"m:${action.args.from.code}-${action.args.to.code}-${action.args.quantity}"
+    } else {
+      "unknown"
+    }
+  }
+
 }
 
 case class Action( processor : TurnAction, args : ActionArgs ) {
 
   def run = processor.run(args)
+
+  def code = Action.getCode(this)
 
 }

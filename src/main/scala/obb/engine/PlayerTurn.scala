@@ -6,7 +6,8 @@ import obb.engine.actions.{Action, TurnAction, ActionArgs, ActionResult}
 case class PlayerTurn(
   board : Board,
   totalCost : Int = 0,
-  valid : Boolean = true
+  valid : Boolean = true,
+  history : List[Pair[PlayerTurn, Action]] = Nil
 ) {
 
   val maxCost = 6
@@ -20,7 +21,15 @@ case class PlayerTurn(
   def push( action : Action ) : PlayerTurn = {
     val result = action.run
     val newCost = result.cost + totalCost
-    PlayerTurn(result.board, newCost, result.success && newCost <= maxCost )
+
+    PlayerTurn(
+      result.board,
+      newCost,
+      valid && result.success && newCost <= maxCost,
+      history :+ (this, action)
+    )
   }
+
+  def historyToString( sep : String = ";" ) = history.map(_._2.code).mkString(sep)
 
 }

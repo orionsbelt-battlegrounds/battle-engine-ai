@@ -57,4 +57,67 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(best.historyToString() == "b:1_2-1_1;b:2_2-2_1")
   }
 
+  it("moves and attacks") {
+    val board = Board("""
+     | 2:100:^:N |           |           |
+     |           |           |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.best.head
+    assert(best.historyToString() == "m:2_3-1_3-100;b:1_3-1_1")
+  }
+
+  it("moves two squares and attacks") {
+    val board = Board("""
+     | 2:100:^:N |           |           |
+     |           |           |           |
+     |           |           |           |
+     |           |           |           |
+     |           |           |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.best.head
+    turnGenerator.best.foreach { turn =>
+      println(turn.historyToString())
+    }
+    println(best.historyToString())
+    //assert(best.historyToString() == "m:2_3-1_3-100;b:1_3-1_1")
+  }
+
+  it("chooses the best move between 2 targets") {
+    val board = Board("""
+     | 2:100:^:N |           | 2:200:^:N |
+     |           |           |           |
+     |           | 1:200:^:N |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.best.head
+    assert(best.historyToString() == "m:2_3-3_3-200;b:3_3-3_1")
+  }
+
+  it("rotates if needed") {
+    val board = Board("""
+     | 2:100:^:N |           |           |
+     |           |           |           |
+     |           | 1:100:^:E |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.best.head
+    assert(best.historyToString() == "m:2_3-1_3-100;r:1_3-N;b:1_3-1_1")
+  }
+
 }

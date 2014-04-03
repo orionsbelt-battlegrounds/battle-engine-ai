@@ -40,7 +40,7 @@ class AttackGeneratorSpec extends UnitSpec {
     val processed = choices.head
     assert(processed.valid == true)
     assert(processed.totalCost == 1)
-    assert(processed.board == Board("""
+    assert(processed.board =~ Board("""
      |           |           |           |
      |           | 1:100:^:N |           |
     """))
@@ -58,7 +58,7 @@ class AttackGeneratorSpec extends UnitSpec {
     val processed = choices.head
     assert(processed.valid == true)
     assert(processed.totalCost == 2)
-    assert(processed.board == Board("""
+    assert(processed.board =~ Board("""
      |           | 1:100:^:E |           |
     """))
   }
@@ -76,7 +76,7 @@ class AttackGeneratorSpec extends UnitSpec {
     val direct = choices(1)
     assert(direct.valid == true)
     assert(direct.totalCost == 1)
-    assert(direct.board == Board("""
+    assert(direct.board =~ Board("""
      |           |           |           |
      |           | 1:100:^:N | 2:100:^:N |
     """))
@@ -84,7 +84,7 @@ class AttackGeneratorSpec extends UnitSpec {
     val rotated = choices(0)
     assert(rotated.valid == true)
     assert(rotated.totalCost == 2)
-    assert(rotated.board == Board("""
+    assert(rotated.board =~ Board("""
      |           | 2:100:^:N |           |
      |           | 1:100:^:E |           |
     """))
@@ -103,7 +103,7 @@ class AttackGeneratorSpec extends UnitSpec {
     val direct = choices.head
     assert(direct.valid == true)
     assert(direct.totalCost == 6)
-    assert(direct.board == Board("""
+    assert(direct.board =~ Board("""
      |           |           |           |
      |           | 1:100:^:N | 2:100:^:N |
     """))

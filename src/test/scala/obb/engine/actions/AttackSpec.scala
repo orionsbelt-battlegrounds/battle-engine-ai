@@ -160,7 +160,7 @@ class AttackSpec extends UnitSpec {
 
       val result = Attack.run(board, Coordinate(2,3), Coordinate(2, 1))
 
-      assert(result.board == Board("""
+      assert(result.board =~ Board("""
        |           | 2:100:^:S |           |
        |           |           |           |
        |           | 1:100:^:N |           |

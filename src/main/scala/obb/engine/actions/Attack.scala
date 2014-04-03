@@ -64,7 +64,7 @@ class Attack extends TurnAction {
       table += ( args.to -> target.forQuantity(remaining) )
     }
 
-    ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table), 1)
+    ActionResult(true, Board(args.board.sizeX, args.board.sizeY, table).freeze(args.from), 1)
   }
 
   def resolveAttack(totalDamage : Int, defense : Int, target : Element) = {

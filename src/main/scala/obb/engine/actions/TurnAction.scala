@@ -9,6 +9,9 @@ trait TurnAction {
   def run( args : ActionArgs ) : ActionResult = {
     args.board.at(args.from) match {
       case Some(element) =>
+        if(element.froozen) {
+          return ActionResult(false, args.board, 0, Some(s"FroozenElement:${args.from.code}"))
+        }
         process(args, element)
       case _ =>
         ActionResult(false, args.board, 0, Some(s"EmptyCoordinate:${args.from.x},${args.from.y}"))

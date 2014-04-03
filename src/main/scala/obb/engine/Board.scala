@@ -29,6 +29,18 @@ case class Board(
 
   override def toString = new AsciiBoardFormatter(this).toString
 
+  def =~(other : Board) : Boolean = this.toString == other.toString
+
+  def freeze(coordinate : Coordinate) : Board = {
+    val element = table.get(coordinate)
+
+    if(element.isDefined) {
+      Board(sizeX, sizeY, table + ( coordinate -> element.get.freeze ))
+    } else {
+      this
+    }
+  }
+
   def elementsFor(player : Player)( f : (Coordinate, Element) => Unit ) {
     table.foreach { case (coordinate, element) =>
       if(element.player == player) {

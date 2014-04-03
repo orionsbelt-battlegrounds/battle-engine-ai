@@ -7,6 +7,29 @@ class BoardSpec extends UnitSpec {
 
   describe("Board") {
 
+    describe("#freeze") {
+
+      it("freezes an element") {
+        val board = Board("""
+         |           |           |           |
+         |           | 2:100:~:N |           |
+         |           |           |           |
+        """)
+
+        val coord = Coordinate(2, 2)
+        val froozen = board.freeze(coord)
+
+        assert(board =~ froozen)
+
+        val element = froozen.table.get(coord)
+        assert(element.get.froozen == true)
+
+        val turn = froozen ~ "m:2_2-2_1-100"
+        assert(turn.valid == false)
+      }
+
+    }
+
     describe("#adjacent") {
 
       it("succeeds on adjacent squares") {

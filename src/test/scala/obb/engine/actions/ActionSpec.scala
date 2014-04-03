@@ -19,7 +19,7 @@ class ActionSpec extends UnitSpec {
       val action = Action.parse("b:2_3-2_1", PlayerTurn(board))
       assert(action.processor.isInstanceOf[Attack])
 
-      assert(action.run.board == Board("""
+      assert(action.run.board =~ Board("""
        |           |           |           |
        |           |           |           |
        |           | 1:100:^:N |           |

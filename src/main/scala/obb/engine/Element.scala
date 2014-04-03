@@ -16,7 +16,12 @@ object Element {
 
 }
 
-case class Element(player: Player, unit : CombatUnit, quantity : Int, direction : Direction) {
+case class Element(
+  player: Player,
+  unit : CombatUnit,
+  quantity : Int,
+  direction : Direction,
+  froozen : Boolean = false) {
 
   override def toString = {
     s"${player.code}:$quantity:${unit.code}:$direction"
@@ -28,6 +33,10 @@ case class Element(player: Player, unit : CombatUnit, quantity : Int, direction 
 
   def forDirection( newDirection : Direction ) : Element = {
     Element(player, unit, quantity, newDirection)
+  }
+
+  def freeze = {
+    Element(player, unit, quantity, direction, true)
   }
 
 }

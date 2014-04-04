@@ -46,7 +46,8 @@ class TurnGenerator(
     }
 
     ply.foreach { playerTurn =>
-      if( options.get(playerTurn.board) == None ) {
+      val cached = options.get(playerTurn.board) 
+      if( cached == None || cached.get.totalCost > playerTurn.totalCost  ) {
         pushTurn(playerTurn)
         generatePly(playerTurn)
       }

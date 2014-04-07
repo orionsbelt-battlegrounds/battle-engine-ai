@@ -37,7 +37,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.board.elementCount(Player.p2) == 0)
     assert(best.history.size == 1)
     assert(best.historyToString() == "b:2_2-2_1")
@@ -52,7 +52,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.board.elementCount(Player.p2) == 0)
     assert(best.historyToString() == "b:1_2-1_1;b:2_2-2_1")
   }
@@ -67,7 +67,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.historyToString() == "m:2_3-1_2-100;b:1_2-1_1")
   }
 
@@ -81,7 +81,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.historyToString() == "m:2_3-3_2-200;b:3_2-3_1")
   }
 
@@ -95,7 +95,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.historyToString() == "m:2_3-1_2-100;r:1_2-N;b:1_2-1_1")
   }
 
@@ -112,7 +112,7 @@ class TurnGeneratorSpec extends UnitSpec {
     val turnGenerator = new TurnGenerator(board, Player.p1)
     assert(turnGenerator.run != None)
 
-    val best = turnGenerator.best.head
+    val best = turnGenerator.best
     assert(best.historyToString() == "m:2_6-2_5-100;m:2_5-1_4-100;b:1_4-1_1")
   }
 

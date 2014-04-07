@@ -23,11 +23,14 @@ class TurnGenerator(
     if(possible == Nil) {
       None
     } else {
-      Some(best.head)
+      Some(best)
     }
   }
 
-  def best : List[PlayerTurn] = {
+  def best = top.head
+  def bestOption = top.headOption
+
+  def top : List[PlayerTurn] = {
     index.toList
   }
 

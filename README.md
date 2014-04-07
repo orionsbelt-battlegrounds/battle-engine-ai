@@ -36,4 +36,4 @@ Each player plays in turn. The player has **6 action points** to spend on its tu
 * Each unit has it own movement cost
 * Splitting a combat unit costs the double of its movement cost
 * Rotating costs 1 movement point
-* Attacking costs 1 movement point
+* Attacking costs 1 movement point, and the unit can't do anything else on the current turn

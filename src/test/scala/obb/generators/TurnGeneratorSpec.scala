@@ -43,6 +43,21 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(best.historyToString() == "b:2_2-2_1")
   }
 
+  it("selects an attack for player 2") {
+    val board = Board("""
+     |           | 2:100:^:S |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p2)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.best
+    assert(best.board.elementCount(Player.p1) == 0)
+    assert(best.history.size == 1)
+    assert(best.historyToString() == "b:2_1-2_2")
+  }
+
   it("selects two attacks") {
     val board = Board("""
      | 2:100:^:N | 2:100:^:N |           |

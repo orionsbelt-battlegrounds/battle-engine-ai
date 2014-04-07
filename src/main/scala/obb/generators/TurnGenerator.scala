@@ -8,6 +8,7 @@ import obb.evaluators._
 class TurnGenerator(
   board : Board,
   player : Player,
+  splitMovement : Boolean = false,
   evaluator : BoardEvaluator = new SimpleBoardEvaluator()) {
 
   def eval(turn : PlayerTurn) : Float = {
@@ -44,7 +45,7 @@ class TurnGenerator(
     var ply = List[PlayerTurn]()
 
     turn.board.elementsFor(player) { (coordinate, element) =>
-      ply ++= MovementGenerator.run(turn, coordinate)
+      ply ++= MovementGenerator.run(turn, coordinate, splitMovement)
       ply ++= AttackGenerator.run(turn, coordinate)
     }
 

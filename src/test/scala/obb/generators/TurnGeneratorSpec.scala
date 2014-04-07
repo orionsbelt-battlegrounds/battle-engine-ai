@@ -116,4 +116,19 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(best.historyToString() == "m:2_6-2_5-100;m:2_5-1_4-100;b:1_4-1_1")
   }
 
+  it("splits units") {
+    val board = Board("""
+     | 2:100:^:N |           |           |
+     |           |           |           |
+     |           | 1:100:^:E |           |
+    """)
+
+    val turnGenerator = new TurnGenerator(board, Player.p1)
+    turnGenerator.run
+    val turnGeneratorWithSplits = new TurnGenerator(board, Player.p1, true)
+    turnGeneratorWithSplits.run
+
+    assert(turnGeneratorWithSplits.possible.size > turnGenerator.possible.size)
+  }
+
 }

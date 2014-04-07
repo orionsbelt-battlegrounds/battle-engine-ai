@@ -20,7 +20,7 @@ case class Board(
 ) {
   lazy val coordinates = table.keys
   lazy val elements = table.values
-  val occupiedSlots = coordinates.size
+  lazy val occupiedSlots = coordinates.size
 
   def at(x : Int, y : Int) : Option[Element] = at(Coordinate(x, y))
   def at(coordinate : Coordinate) : Option[Element] = table.get(coordinate)
@@ -39,6 +39,14 @@ case class Board(
     } else {
       this
     }
+  }
+
+  def reset : Board = {
+    var reseted = table
+    table.foreach { pair =>
+      reseted += (pair._1 -> pair._2.unfreeze)
+    }
+    Board(sizeX, sizeY, reseted)
   }
 
   def elementsFor(player : Player)( f : (Coordinate, Element) => Unit ) {

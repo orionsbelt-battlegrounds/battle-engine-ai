@@ -5,6 +5,7 @@ import obb.engine._
 
 trait PlayerController {
 
-  def play(board : Board, player : Player) : PlayerTurn
+  val player : Player
+  def play(board : Board) : PlayerTurn
 
 }

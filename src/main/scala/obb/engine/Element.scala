@@ -39,4 +39,12 @@ case class Element(
     Element(player, unit, quantity, direction, true)
   }
 
+  def unfreeze = {
+    if(froozen) {
+      Element(player, unit, quantity, direction, false)
+    } else {
+      this
+    }
+  }
+
 }

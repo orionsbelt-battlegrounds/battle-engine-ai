@@ -4,12 +4,12 @@ package obb.controllers
 import obb.engine._
 import obb.generators._
 
-class BasicPlayerSplitterController extends PlayerController {
+class BasicPlayerSplitterController(val player : Player) extends PlayerController {
 
-  def play(board : Board, player : Player) : PlayerTurn = {
+  def play(board : Board) : PlayerTurn = {
     val generator = new TurnGenerator(board, player, true)
     generator.run
-    generator.best
+    generator.bestOption.getOrElse{ PlayerTurn(board) }
   }
 
 }

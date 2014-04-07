@@ -14,8 +14,8 @@ class BasicPlayerControllerSpec extends UnitSpec {
      |           |           |           |
     """)
 
-    val controller = new BasicPlayerController()
-    val turn = controller.play(board, Player.p1)
+    val controller = new BasicPlayerController(Player.p1)
+    val turn = controller.play(board)
 
     assert(turn.board.elementCount(Player.p2) == 0)
 

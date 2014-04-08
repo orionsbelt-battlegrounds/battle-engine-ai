@@ -43,8 +43,8 @@ case class Board(
 
   def reset : Board = {
     var reseted = table
-    table.foreach { pair =>
-      reseted += (pair._1 -> pair._2.unfreeze)
+    table.foreach { case(coordinate, element) =>
+      reseted += (coordinate -> element.unfreeze)
     }
     Board(sizeX, sizeY, reseted)
   }

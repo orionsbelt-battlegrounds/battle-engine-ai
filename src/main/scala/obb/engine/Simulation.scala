@@ -22,7 +22,7 @@ class Simulation(board : Board) {
   override def toString = {
     var str = "--\n"
     str ++= board.toString
-    plays.foreach { turn =>
+    plays.reverse.foreach { turn =>
       str ++= "\n"
       str += turn.historyToString()
       str ++= "\n"

@@ -38,7 +38,11 @@ class SimulationSpec extends UnitSpec {
     val c2 = new BasicPlayerController(Player.p2)
 
     val simulation = new Simulation(board)
-    //simulation.play(c1, c2)
+    /*
+    simulation.play(c1, c2)
+    println(s"Plays: ${simulation.plays.size}")
+    println(simulation.toString)
+    */
   }
 }
 

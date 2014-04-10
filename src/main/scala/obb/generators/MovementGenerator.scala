@@ -17,17 +17,14 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
   def process(turn : PlayerTurn, coordinate : Coordinate, element : Element) : List[PlayerTurn] = {
     val movementType = element.unit.movementType
     var movs = List[PlayerTurn]()
-    for( x <- -1 to 1)  {
-      for(y <- -1 to 1) {
-        val maybe = Coordinate(coordinate.x + x, coordinate.y + y)
-        if( maybe != coordinate ) {
-          if(movementType.movementPossible(turn.board, coordinate, maybe)) {
-            eachSplitOption(element) { quantity =>
-              val action = MovementType.action(turn.board, coordinate, maybe, quantity)
-              val playerTurn = turn ~ action
-              if(playerTurn.valid) {
-                movs ::= playerTurn
-              }
+    possibleCoordinates(turn.board, coordinate, element).foreach { maybe =>
+      if( maybe != coordinate ) {
+        if(movementType.movementPossible(turn.board, coordinate, maybe)) {
+          eachSplitOption(element) { quantity =>
+            val action = MovementType.action(turn.board, coordinate, maybe, quantity)
+            val playerTurn = turn ~ action
+            if(playerTurn.valid) {
+              movs ::= playerTurn
             }
           }
         }
@@ -35,6 +32,21 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
     }
 
     movs
+  }
+
+  def possibleCoordinates(board : Board, from : Coordinate, element : Element) : List[Coordinate] = {
+    var list = List[Coordinate]()
+
+    val startX = -1
+    val startY = -1
+
+    for(x <- startX to 1) {
+      for(y <- startY to 1) {
+        val coord = Coordinate(from.x + x, from.y + y)
+        list ::= coord
+      }
+    }
+    list
   }
 
   def eachSplitOption(element : Element)(f : (Int) => Unit ) {

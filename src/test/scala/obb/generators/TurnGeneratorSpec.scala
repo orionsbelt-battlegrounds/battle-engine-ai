@@ -83,7 +83,7 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.best
-    assert(best.historyToString() == "m:2_3-1_2-100;b:1_2-1_1")
+    assert(best.board.elementCount(Player.p2) == 0)
   }
 
   it("chooses the best move between 2 targets") {
@@ -97,7 +97,8 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.best
-    assert(best.historyToString() == "m:2_3-3_2-200;b:3_2-3_1")
+    assert(best.board.elementCount(Player.p2) == 1)
+    assert(best.board.at(1,1) != None)
   }
 
   it("rotates if needed") {
@@ -111,7 +112,7 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.best
-    assert(best.historyToString() == "m:2_3-1_2-100;r:1_2-N;b:1_2-1_1")
+    assert(best.board.elementCount(Player.p2) == 0)
   }
 
   it("moves two squares and attacks") {
@@ -128,7 +129,8 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.best
-    assert(best.historyToString() == "m:2_6-2_5-100;m:2_5-1_4-100;b:1_4-1_1")
+    println(best.board)
+    assert(best.board.elementCount(Player.p2) == 0)
   }
 
   it("splits units") {

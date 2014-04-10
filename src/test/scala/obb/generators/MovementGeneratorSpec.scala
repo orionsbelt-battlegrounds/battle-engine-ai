@@ -17,7 +17,7 @@ class MovementGeneratorSpec extends UnitSpec {
 
   it("checks borders and other combat units") {
     val board = Board("""
-      | 1:100:^:N |           |
+      | 1:100:^:S |           |
       |           | 1:100:~:N |
     """)
 
@@ -25,26 +25,26 @@ class MovementGeneratorSpec extends UnitSpec {
     val choices = MovementGenerator.run(turn, Coordinate(1, 1))
     assert(choices.size == 2)
 
-    val t1 = choices(0)
+    val t1 = choices(1)
     assert(t1.valid == true)
     assert(t1.totalCost == CombatUnit("^").movementCost)
     assert(t1.board == Board("""
-      |           | 1:100:^:N |
+      |           | 1:100:^:S |
       |           | 1:100:~:N |
     """))
 
-    val t2 = choices(1)
+    val t2 = choices(0)
     assert(t2.valid == true)
     assert(t2.totalCost == CombatUnit("^").movementCost)
     assert(t2.board == Board("""
       |           |           |
-      | 1:100:^:N | 1:100:~:N |
+      | 1:100:^:S | 1:100:~:N |
     """))
   }
 
   it("adds split options ") {
     val board = Board("""
-      | 1:101:^:N |           |
+      | 1:101:^:S |           |
       |           | 1:100:~:N |
     """)
 

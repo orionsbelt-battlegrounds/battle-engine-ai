@@ -32,6 +32,7 @@ class TurnGenerator(
   def bestOption = top.headOption
 
   def top : List[PlayerTurn] = {
+    println(options.size)
     index.toList
   }
 

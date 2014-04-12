@@ -11,6 +11,10 @@ class TurnGenerator(
   splitMovement : Boolean = false,
   evaluator : BoardEvaluator = new SimpleBoardEvaluator()) {
 
+  var totalChoices = 0
+  var cacheHits = 0
+  var processedChoices = 0
+
   def eval(turn : PlayerTurn) : Float = {
     evaluator.evaluate(turn.board, player) + 0.6.toFloat - 0.1.toFloat * turn.totalCost
   }
@@ -32,7 +36,6 @@ class TurnGenerator(
   def bestOption = top.headOption
 
   def top : List[PlayerTurn] = {
-    println(options.size)
     index.toList
   }
 
@@ -43,6 +46,8 @@ class TurnGenerator(
   var options : Map[Board, PlayerTurn] = Map[Board, PlayerTurn]()
 
   def generatePly(turn : PlayerTurn) : Int = {
+    totalChoices += 1
+
     var ply = List[PlayerTurn]()
 
     turn.board.elementsFor(player) { (coordinate, element) =>
@@ -51,10 +56,12 @@ class TurnGenerator(
     }
 
     ply.foreach { playerTurn =>
-      val cached = options.get(playerTurn.board) 
+      val cached = options.get(playerTurn.board)
       if( cached == None || cached.get.totalCost > playerTurn.totalCost  ) {
         pushTurn(playerTurn)
         generatePly(playerTurn)
+      } else {
+        cacheHits += 1
       }
     }
 
@@ -65,6 +72,7 @@ class TurnGenerator(
     options += (turn.board -> turn)
     index += turn
     index = index.take(10)
+    processedChoices += 1
 
     //println(s"${eval(turn)} ${turn.historyToString()}")
   }

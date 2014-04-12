@@ -129,7 +129,6 @@ class TurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.best
-    println(best.board)
     assert(best.board.elementCount(Player.p2) == 0)
   }
 

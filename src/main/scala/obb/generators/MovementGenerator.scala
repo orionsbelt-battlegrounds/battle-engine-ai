@@ -19,7 +19,7 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
     var movs = List[PlayerTurn]()
     possibleCoordinates(turn.board, coordinate, element).foreach { maybe =>
       if( maybe != coordinate ) {
-        if(movementType.movementPossible(turn.board, coordinate, maybe)) {
+        if(turn.board.at(maybe) == None && movementType.movementPossible(turn.board, coordinate, maybe)) {
           eachSplitOption(element) { quantity =>
             val action = MovementType.action(turn.board, coordinate, maybe, quantity)
             val playerTurn = turn ~ action
@@ -46,6 +46,7 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
         list ::= coord
       }
     }
+    
     list
   }
 

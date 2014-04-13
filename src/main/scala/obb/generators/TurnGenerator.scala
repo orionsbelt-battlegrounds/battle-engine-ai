@@ -47,12 +47,14 @@ class TurnGenerator(
 
   def elementOrder(ce : CoordinateElement) = -ce.element.unit.value
 
+  def playerElements(turn : PlayerTurn) = turn.board.elementsFor(player) sortBy(elementOrder)
+
   def generatePly(turn : PlayerTurn) : Int = {
     totalChoices += 1
 
     var ply = List[PlayerTurn]()
 
-    turn.board.elementsFor(player) sortBy(elementOrder) foreach { (ce) =>
+    playerElements(turn) foreach { (ce) =>
       ply ++= MovementGenerator.run(turn, ce.coordinate, splitMovement)
       ply ++= AttackGenerator.run(turn, ce.coordinate)
     }

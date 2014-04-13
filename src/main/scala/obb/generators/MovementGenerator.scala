@@ -46,7 +46,7 @@ class MovementGenerator(split: Boolean = false) extends MoveGenerator {
         list ::= coord
       }
     }
-    
+
     list
   }
 

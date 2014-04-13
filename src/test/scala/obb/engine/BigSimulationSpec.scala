@@ -26,6 +26,7 @@ class BigSimulationSpec extends UnitSpec {
     simulation.play(c1, c2)
     println(s"Plays: ${simulation.plays.size}")
     println(simulation.toString)
+    println(simulation.plays.size)
     */
   }
 }

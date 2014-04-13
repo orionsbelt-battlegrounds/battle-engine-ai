@@ -49,12 +49,13 @@ case class Board(
     Board(sizeX, sizeY, reseted)
   }
 
-  def elementsFor(player : Player)( f : (Coordinate, Element) => Unit ) {
-    table.foreach { case (coordinate, element) =>
-      if(element.player == player) {
-        f(coordinate, element)
-      }
-    }
+  def coordinateElements = table.collect {
+    case (key, value) => CoordinateElement(key, value)
+  }.toList
+
+
+  def elementsFor(player : Player) : List[CoordinateElement] = {
+    coordinateElements.filter(_.element.player == player)
   }
 
   def eachElement( f : (Element) => Unit ) {

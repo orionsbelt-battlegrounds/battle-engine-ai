@@ -4,11 +4,12 @@ import obb.engine.actions._
 
 object CombatUnit {
 
-  def apply(raw : String) : CombatUnit = {
-    if(raw.trim == mediumDummy.code) {
-      return mediumDummy
-    }
-    dummy
+  def apply(raw : String) : CombatUnit = raw match {
+    case mediumDummy.name => mediumDummy
+    case mediumDummy.code => mediumDummy
+    case heavyDummy.name => heavyDummy
+    case heavyDummy.code => heavyDummy
+    case _ => dummy
   }
 
   lazy val dummy = {
@@ -16,7 +17,11 @@ object CombatUnit {
   }
 
   lazy val mediumDummy = {
-    CombatUnit("dummy", "^", 10, 1000, 3, 1000, 2)
+    CombatUnit("mediumDummy", "^", 10, 1000, 3, 1000, 2)
+  }
+
+  lazy val heavyDummy = {
+    CombatUnit("heavyDummy", "*", 20, 2000, 6, 2000, 4)
   }
 
 }

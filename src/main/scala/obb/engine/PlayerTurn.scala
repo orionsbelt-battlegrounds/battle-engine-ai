@@ -3,7 +3,7 @@ package obb.engine
 
 import obb.engine.actions.{Action, TurnAction, ActionArgs, ActionResult}
 
-case class History(turn : PlayerTurn, action : Action)
+case class History(turn : PlayerTurn, action : Action, result : ActionResult)
 
 case class PlayerTurn(
   board : Board,
@@ -28,7 +28,7 @@ case class PlayerTurn(
       result.board,
       newCost,
       valid && result.success && newCost <= maxCost,
-      history :+ History(this, action)
+      history :+ History(this, action, result)
     )
   }
 

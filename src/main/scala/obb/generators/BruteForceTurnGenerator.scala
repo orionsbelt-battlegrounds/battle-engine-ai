@@ -26,11 +26,7 @@ class BruteForceTurnGenerator(
   def run : Option[PlayerTurn] = {
     val turn = PlayerTurn(board)
     generatePly(turn)
-    if(possible == Nil) {
-      None
-    } else {
-      bestOption
-    }
+    bestOption
   }
 
   def best = top.head

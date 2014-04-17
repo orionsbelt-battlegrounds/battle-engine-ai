@@ -27,24 +27,12 @@ case class Element(
     s"${player.code}:$quantity:${unit.code}:$direction"
   }
 
-  def forQuantity( newQuantity : Int ) : Element = {
-    Element(player, unit, newQuantity, direction)
-  }
+  def forQuantity(newQuantity : Int) : Element = copy(quantity = newQuantity)
 
-  def forDirection( newDirection : Direction ) : Element = {
-    Element(player, unit, quantity, newDirection)
-  }
+  def forDirection(newDirection : Direction) : Element = copy(direction = newDirection)
 
-  def freeze = {
-    Element(player, unit, quantity, direction, true)
-  }
+  def freeze = copy(froozen = true)
 
-  def unfreeze = {
-    if(froozen) {
-      Element(player, unit, quantity, direction, false)
-    } else {
-      this
-    }
-  }
+  def unfreeze = copy(froozen = false)
 
 }

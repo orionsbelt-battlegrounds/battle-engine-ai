@@ -24,8 +24,36 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
   }
 
   def possibleBest(turn : PlayerTurn)(ce : CoordinateElement) : List[EvaluatedTurn] = {
+    val all = possibleBestWorker(turn, ce)
+
+    all.foldLeft(List[EvaluatedTurn]()) { (list, et) =>
+      if(list.exists(_.turn.board == et.turn.board || et.turn.board == originalPlayerTurn.board)) {
+        list
+      } else {
+        et :: list
+      }
+    }
+  }
+
+  def possibleBestWorker(turn : PlayerTurn, ce : CoordinateElement) : List[EvaluatedTurn] = {
     val ply = generatePly(turn, ce.coordinate) map evaluate
-    ply
+    ply.foldLeft(ply) { (list, et) =>
+      list ::: possibleBestChildren(et)
+    }
+  }
+  def possibleBestChildren(et : EvaluatedTurn) : List[EvaluatedTurn] = {
+    val lastAction = et.turn.lastAction
+
+    if(et.turn.valid && lastAction.processor.isInstanceOf[MovementAction]) {
+      val coord = lastAction.args.to
+      val elementOption = et.turn.board.at(coord)
+      if(elementOption.isDefined) {
+        val coordElem = CoordinateElement(coord, elementOption.get)
+        return possibleBestWorker(et.turn, coordElem)
+      }
+    }
+
+    Nil
   }
 
   def run : Option[PlayerTurn] = {

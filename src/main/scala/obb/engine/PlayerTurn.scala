@@ -34,4 +34,6 @@ case class PlayerTurn(
 
   def historyToString( sep : String = ";" ) = history.map(_.action.code).mkString(sep)
 
+  def lastAction = history.head.action
+
 }

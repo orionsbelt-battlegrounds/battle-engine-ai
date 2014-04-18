@@ -32,10 +32,10 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
     val turn = originalPlayerTurn
     val best = playerElements(turn) map possibleBest(turn) flatten
     val bestOption = best.headOption
-    if(bestOption == None) {
-      None
-    } else {
+    if(bestOption.isDefined) {
       Some(bestOption.get.turn)
+    } else {
+      None
     }
   }
 

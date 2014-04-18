@@ -8,7 +8,7 @@ import obb.evaluators._
 
 class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator {
 
-  case class ResolvedTurn(turn : PlayerTurn, value : Float)
+  case class EvaluatedTurn(turn : PlayerTurn, value : Float)
   val evaluator : BoardEvaluator = new SimpleBoardEvaluator()
 
   val originalPlayerTurn = PlayerTurn(board)
@@ -19,11 +19,11 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
     MovementGenerator.run(turn, coord) ::: AttackGenerator.run(turn, coord)
   }
 
-  def evaluate(turn : PlayerTurn) : ResolvedTurn = {
-    ResolvedTurn(turn, evaluator.evaluate(turn.board, player))
+  def evaluate(turn : PlayerTurn) : EvaluatedTurn = {
+    EvaluatedTurn(turn, evaluator.evaluate(turn.board, player))
   }
 
-  def possibleBest(turn : PlayerTurn)(ce : CoordinateElement) : List[ResolvedTurn] = {
+  def possibleBest(turn : PlayerTurn)(ce : CoordinateElement) : List[EvaluatedTurn] = {
     val ply = generatePly(turn, ce.coordinate) map evaluate
     ply
   }

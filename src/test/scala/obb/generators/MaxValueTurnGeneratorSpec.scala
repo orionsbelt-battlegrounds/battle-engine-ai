@@ -26,9 +26,21 @@ class MaxValueTurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
   }
 
+  it("selects an attack") {
+    val board = Board("""
+     |           | 2:100:^:N |           |
+     |           | 1:100:^:N |           |
+    """)
+
+    val turnGenerator = new MaxValueTurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.run.get
+    assert(best.board.elementCount(Player.p2) == 0)
+  }
+
   describe(".possibleBest") {
-/*
-*/
+
     it("finds all adjacent options") {
       val board = Board("""
        |           |           |           |

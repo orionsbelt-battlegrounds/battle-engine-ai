@@ -37,6 +37,7 @@ class MaxValueTurnGeneratorSpec extends UnitSpec {
 
     val best = turnGenerator.run.get
     assert(best.board.elementCount(Player.p2) == 0)
+    assert(best.historyToString() == "b:2_2-2_1")
   }
 
   describe(".possibleBest") {

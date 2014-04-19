@@ -20,7 +20,9 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
   }
 
   def evaluate(turn : PlayerTurn) : EvaluatedTurn = {
-    EvaluatedTurn(turn, evaluator.evaluate(turn.board, player))
+    val boardValue = evaluator.evaluate(turn.board, player)
+    val value = boardValue + 0.6.toFloat - 0.1.toFloat * turn.totalCost
+    EvaluatedTurn(turn, value)
   }
 
   def possibleBest(turn : PlayerTurn)(ce : CoordinateElement) : List[EvaluatedTurn] = {
@@ -58,7 +60,8 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
 
   def run : Option[PlayerTurn] = {
     val turn = originalPlayerTurn
-    val best = playerElements(turn) map possibleBest(turn) flatten
+    val possible : List[EvaluatedTurn] = playerElements(turn) map possibleBest(turn) flatten
+    val best = possible.sortBy(-_.value)
     val bestOption = best.headOption
     if(bestOption.isDefined) {
       Some(bestOption.get.turn)

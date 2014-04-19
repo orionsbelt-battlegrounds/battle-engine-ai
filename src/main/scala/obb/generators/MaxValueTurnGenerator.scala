@@ -27,7 +27,10 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
 
   def possibleBest(turn : PlayerTurn)(ce : CoordinateElement) : List[EvaluatedTurn] = {
     val all = possibleBestWorker(turn, ce)
+    removeDuplicates(all)
+  }
 
+  def removeDuplicates(all : List[EvaluatedTurn]) : List[EvaluatedTurn] = {
     all.foldLeft(List[EvaluatedTurn]()) { (list, et) =>
       if(list.exists(_.turn.board == et.turn.board || et.turn.board == originalPlayerTurn.board)) {
         list

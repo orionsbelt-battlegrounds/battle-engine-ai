@@ -68,10 +68,14 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
     top
   }
 
-  def generateTop(max : Int) : List[EvaluatedTurn] = {
-    val ply = generateTopFor(originalPlayerTurn, max)
+  def generateTop(max : Int, turn : PlayerTurn = originalPlayerTurn) : List[EvaluatedTurn] = {
+    val ply = generateTopFor(turn, max)
     val all = ply.foldLeft(ply) { (list, et) =>
-      list ::: generateTopFor(et.turn, max)
+      if(et.turn.valid) {
+        list ::: generateTop(max, et.turn)
+      } else {
+        list
+      }
     }
     all.sortBy(-_.value).take(max)
   }

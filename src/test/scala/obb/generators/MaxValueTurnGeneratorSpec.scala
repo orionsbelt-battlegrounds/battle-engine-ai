@@ -40,6 +40,20 @@ class MaxValueTurnGeneratorSpec extends UnitSpec {
     assert(best.historyToString() == "b:2_2-2_1")
   }
 
+  it("selects two attacks") {
+    val board = Board("""
+     |           | 2:100:^:N | 2:100:^:N |
+     |           | 1:100:^:N | 1:100:^:N |
+    """)
+
+    val turnGenerator = new MaxValueTurnGenerator(board, Player.p1)
+    assert(turnGenerator.run != None)
+
+    val best = turnGenerator.run.get
+    assert(best.board.elementCount(Player.p2) == 0)
+    assert(best.historyToString() == "b:2_2-2_1;b:3_2-3_1")
+  }
+
   describe(".possibleBest") {
 
     it("finds all adjacent options") {

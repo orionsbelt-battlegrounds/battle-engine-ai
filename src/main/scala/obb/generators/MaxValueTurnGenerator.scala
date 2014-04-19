@@ -10,6 +10,7 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
 
   case class EvaluatedTurn(turn : PlayerTurn, value : Float)
   val evaluator : BoardEvaluator = new SimpleBoardEvaluator()
+  val maxMovesToConsider = 20
 
   val originalPlayerTurn = PlayerTurn(board)
 
@@ -61,10 +62,23 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
     Nil
   }
 
-  def run : Option[PlayerTurn] = {
-    val turn = originalPlayerTurn
+  def generateTopFor(turn : PlayerTurn, max : Int) : List[EvaluatedTurn] = {
     val possible : List[EvaluatedTurn] = playerElements(turn) map possibleBest(turn) flatten
-    val best = possible.sortBy(-_.value)
+    val top = possible.sortBy(-_.value).take(20)
+    top
+  }
+
+  def generateTop(max : Int) : List[EvaluatedTurn] = {
+    val ply = generateTopFor(originalPlayerTurn, max)
+    val all = ply.foldLeft(ply) { (list, et) =>
+      list ::: generateTopFor(et.turn, max)
+    }
+    all.sortBy(-_.value).take(max)
+  }
+
+  def run : Option[PlayerTurn] = {
+    val best = generateTop(maxMovesToConsider)
+
     val bestOption = best.headOption
     if(bestOption.isDefined) {
       Some(bestOption.get.turn)

@@ -24,6 +24,11 @@ class AllMovement extends MovementAction {
       return Some(ActionResult(false, args.board, 0, Some(s"NotAdjacentCoordinate:${args.to.x},${args.to.y}")))
     }
 
+    val fromElement = args.board.at(args.from).get
+    if( fromElement.froozen) {
+      return Some(ActionResult(false, args.board, 0, Some("FroozenTarget")))
+    }
+
     val toElement = args.board.at(args.to)
     if( toElement != None ) {
       val source = args.board.at(args.from).get

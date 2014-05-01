@@ -11,6 +11,10 @@ object Action {
         MovementType.action( turn.board, Coordinate(rawFrom), Coordinate(rawTo), quantity.toInt)
       case Array("b", rawFrom, rawTo) =>
         Attack.action(turn.board, Coordinate(rawFrom), Coordinate(rawTo))
+      case Array("r", rawFrom, rawDir) =>
+        ChangeDirection.action(turn.board, Coordinate(rawFrom), Direction(rawDir))
+      case _ =>
+        throw new Exception(s"Can't parse $raw")
     }
   }
 

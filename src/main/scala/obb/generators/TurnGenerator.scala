@@ -8,7 +8,7 @@ import obb.evaluators._
 object TurnGenerator {
 
   def apply(board : Board, player : Player) : TurnGenerator = {
-    new BruteForceTurnGenerator(board, player)
+    new MaxValueTurnGenerator(board, player)
   }
 }
 

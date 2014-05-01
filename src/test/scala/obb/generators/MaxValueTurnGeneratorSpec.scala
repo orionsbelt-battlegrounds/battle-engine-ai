@@ -4,6 +4,7 @@ package obb.tests
 import obb.engine._
 import obb.generators._
 import obb.evaluators._
+import obb.generators.MaxValueTurnGenerator._
 
 class MaxValueTurnGeneratorSpec extends UnitSpec {
 
@@ -50,8 +51,8 @@ class MaxValueTurnGeneratorSpec extends UnitSpec {
     assert(turnGenerator.run != None)
 
     val best = turnGenerator.run.get
-    assert(best.board.elementCount(Player.p2) == 0)
     assert(best.historyToString() == "b:2_2-2_1;b:3_2-3_1")
+    assert(best.board.elementCount(Player.p2) == 0)
   }
 
   it("selects three attacks") {
@@ -113,6 +114,39 @@ class MaxValueTurnGeneratorSpec extends UnitSpec {
       assert(options.size == 2)
     }
 
+  }
+
+  describe(".combine") {
+
+    it("handles default scenarios") {
+      val board = Board("""
+       | 1:100:^:N |
+      """)
+
+      val turn = PlayerTurn(board)
+      val et = EvaluatedTurn(turn, 100)
+      assert(combine(List(et)).size == 1)
+    }
+
+    it("joins 2 turns") {
+      val board = Board("""
+       |           | 2:100:^:N | 2:100:^:N |
+       |           | 1:100:^:N | 1:100:^:N |
+      """)
+
+      val turn1 = board ~ "b:2_2-2_1"
+      val et1 = EvaluatedTurn(turn1, 100)
+
+      val turn2 = board ~ "b:3_2-3_1"
+      val et2 = EvaluatedTurn(turn2, 100)
+
+      val combined = combine(List(et1, et2)).sortBy(-_.value)
+      assert(combined.size == 3)
+
+      assert(combined.head.value == 200)
+
+
+    }
   }
 
 }

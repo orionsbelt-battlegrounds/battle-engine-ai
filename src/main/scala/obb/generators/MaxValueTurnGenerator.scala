@@ -6,9 +6,28 @@ import obb.engine._
 import obb.engine.actions._
 import obb.evaluators._
 
+object MaxValueTurnGenerator {
+
+  def combine(list : List[EvaluatedTurn]) : List[EvaluatedTurn] = {
+    if(list.size < 2) {
+      return list
+    }
+    val master = list.tail.foldLeft(list.head) { (master, et) =>
+      val newMaster = master + et
+      if(newMaster.valid) {
+        newMaster
+      } else {
+        master
+      }
+    }
+
+    master :: list
+  }
+
+}
+
 class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator {
 
-  case class EvaluatedTurn(turn : PlayerTurn, value : Float)
   val evaluator : BoardEvaluator = new SimpleBoardEvaluator()
   val maxMovesToConsider = 20
 
@@ -68,16 +87,17 @@ class MaxValueTurnGenerator(board: Board, player : Player) extends TurnGenerator
     top
   }
 
+  def sort(list : List[EvaluatedTurn]) : List[EvaluatedTurn] = {
+    list.sortBy(-_.value)
+  }
+
   def generateTop(max : Int, turn : PlayerTurn = originalPlayerTurn) : List[EvaluatedTurn] = {
     val ply = generateTopFor(turn, max)
-    val all = ply.foldLeft(ply) { (list, et) =>
-      if(et.turn.valid) {
-        list ::: generateTop(max, et.turn)
-      } else {
-        list
-      }
-    }
-    all.sortBy(-_.value).take(max)
+    val sorted = sort(ply).take(maxMovesToConsider)
+    val combinedSorted = sort(MaxValueTurnGenerator.combine(sorted))
+    //combinedSorted.foreach( et => println(s"${et.value} ${et.turn.historyToString()} ${et.turn.valid}"))
+
+    combinedSorted
   }
 
   def run : Option[PlayerTurn] = {

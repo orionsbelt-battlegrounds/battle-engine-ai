@@ -9,7 +9,11 @@ object MovementType {
   val front : MovementAction = new FrontMovement()
 
   def action(board: Board, from : Coordinate, to : Coordinate, quantity : Int) : Action = {
-    val element = board.at(from).get
+    val elementOption = board.at(from)
+    if(elementOption == None) {
+      return InvalidAction.message(s"No element at ${from}")
+    }
+    val element = elementOption.get
     if(element.unit.movementType == all) {
       return AllMovement.action(board, from, to, quantity)
     }

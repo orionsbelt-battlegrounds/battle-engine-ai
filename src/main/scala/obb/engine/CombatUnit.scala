@@ -24,6 +24,9 @@ object CombatUnit {
     // lights
     map = add(map, CombatUnit("rain", "r", 4, 120, 1, 70, 1))
 
+    // heavies
+    map = add(map, CombatUnit("crusader", "c", 62, 2400, 6, 2200, 4))
+
     map
 
   }

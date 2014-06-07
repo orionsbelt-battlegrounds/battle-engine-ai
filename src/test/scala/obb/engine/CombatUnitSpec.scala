@@ -63,6 +63,17 @@ class CombatUnitSpec extends UnitSpec {
         assert(CombatUnit("r").name == "rain")
       }
     }
+
+    describe("crusader") {
+
+      it("is findable by name") {
+        assert(CombatUnit("crusader").name == "crusader")
+      }
+
+      it("is findable by code") {
+        assert(CombatUnit("c").name == "crusader")
+      }
+    }
   }
 
 }

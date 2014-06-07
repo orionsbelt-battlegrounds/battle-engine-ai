@@ -10,6 +10,7 @@ object CombatUnit {
 
   lazy val dummy = apply("dummy")
   lazy val mediumDummy = apply("mediumDummy")
+  lazy val heavyDummy = apply("heavyDummy")
 
   def loadCombatUnits : Map[String, CombatUnit] = {
 
@@ -17,7 +18,8 @@ object CombatUnit {
 
     // dumies
     map = add(map, CombatUnit("dummy", "~", 1, 100, 1, 100))
-    map = add(map, CombatUnit("mediumDummy", "^", 10, 1000, 3, 1000, 2))
+    map = add(map, CombatUnit("mediumDummy", "^", 100, 1000, 3, 1000, 2))
+    map = add(map, CombatUnit("heavyDummy", "#", 1000, 2000, 6, 2000, 4))
 
     map
 

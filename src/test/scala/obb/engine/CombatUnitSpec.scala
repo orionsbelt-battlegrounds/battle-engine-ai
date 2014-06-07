@@ -38,6 +38,21 @@ class CombatUnitSpec extends UnitSpec {
       }
     }
 
+    describe("heavyDummy") {
+
+      it("is available") {
+        assert(CombatUnit.heavyDummy.name == "heavyDummy")
+      }
+
+      it("is findable by name") {
+        assert(CombatUnit(CombatUnit.heavyDummy.name) == CombatUnit.heavyDummy)
+      }
+
+      it("is findable by code") {
+        assert(CombatUnit(CombatUnit.heavyDummy.code) == CombatUnit.heavyDummy)
+      }
+    }
+
   }
 
 }

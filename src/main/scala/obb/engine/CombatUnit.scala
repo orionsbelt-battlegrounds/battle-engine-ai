@@ -21,6 +21,9 @@ object CombatUnit {
     map = add(map, CombatUnit("mediumDummy", "^", 100, 1000, 3, 1000, 2))
     map = add(map, CombatUnit("heavyDummy", "#", 1000, 2000, 6, 2000, 4))
 
+    // lights
+    map = add(map, CombatUnit("rain", "r", 4, 120, 1, 70, 1))
+
     map
 
   }

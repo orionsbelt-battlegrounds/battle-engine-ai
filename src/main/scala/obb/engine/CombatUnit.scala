@@ -4,19 +4,27 @@ import obb.engine.actions._
 
 object CombatUnit {
 
-  def apply(raw : String) : CombatUnit = {
-    if(raw.trim == mediumDummy.code) {
-      return mediumDummy
-    }
-    dummy
+  def apply(raw : String) : CombatUnit = all(raw)
+
+  val all = loadCombatUnits
+
+  lazy val dummy = apply("dummy")
+  lazy val mediumDummy = apply("mediumDummy")
+
+  def loadCombatUnits : Map[String, CombatUnit] = {
+
+    var map : Map[String, CombatUnit] = Map()
+
+    // dumies
+    map = add(map, CombatUnit("dummy", "~", 1, 100, 1, 100))
+    map = add(map, CombatUnit("mediumDummy", "^", 10, 1000, 3, 1000, 2))
+
+    map
+
   }
 
-  lazy val dummy = {
-    CombatUnit("dummy", "~", 1, 100, 1, 100)
-  }
-
-  lazy val mediumDummy = {
-    CombatUnit("dummy", "^", 10, 1000, 3, 1000, 2)
+  def add(map : Map[String, CombatUnit], unit : CombatUnit) = {
+    map + (unit.code -> unit) + (unit.name -> unit)
   }
 
 }
